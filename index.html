@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mesto</title>
+  <link rel='stylesheet' href="./vendor/normalize.css">
+  <link rel='stylesheet' href="./vendor/inter.css">
   <link rel='stylesheet' href="./styles/style.css">
 </head>
 <body class="page">
@@ -14,13 +16,15 @@
 
   <main class="content">
     <section class="profile">
-      <img src="./images/Avatar.png" alt="фото профиля" class="profile__avatar">
-      <div class="profile__info">
-        <h1 class="profile__name">Жак-Ив Кусто</h1>
-        <p class="profile__specialization">Исследователь океана</p>
-        
+      <div class="profole__info-user">
+        <img src="./images/Avatar.png" alt="Фото профиля." class="profile__avatar">
+        <div class="profile__info">
+          <h1 class="profile__name">Жак-Ив Кусто</h1>
+          <p class="profile__specialization">Исследователь океана</p>
+          <a href="#" class="profile__edit-button"><img src="./images/Edit Button.svg" alt="Кнопка редактирования профиля." class="profile__edit-button-img"></a>
+        </div>
       </div>
-
+      <a href="#" class="profile__add-button"><img src="./images/cross.svg" alt="Кнопка добавления." class="profile__add-button-img"></a>
     </section>
   </main>
 
