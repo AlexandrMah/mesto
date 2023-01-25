@@ -27,6 +27,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 51px;
 }
 
 .profole__info-user{
@@ -84,7 +85,6 @@
   opacity: 0.6;
 }
 
-
 .profile__add-button{
   width: 150px;
   height: 50px;
@@ -109,7 +109,49 @@
   right: 0;
 }
 
+.elements {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  gap: 20px 17px;
+}
 
+.element {
+  max-width: 282px;
+  height: 361px;
+  background-color: #fff;
+  color: #000;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.element__image {
+  margin: 0;
+  border-radius: 10px 10px 0 0;
+  background-color: #000;
+}
+
+.element__info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 25px 15px 0 21px;
+}
+
+.element__name {
+  margin: 0;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 29px;
+}
+
+.element__like {
+  width: 22px;
+  height: 19px;
+
+}
 
 .footer {
   max-width: 880px;
