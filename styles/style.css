@@ -108,3 +108,10 @@
   bottom: 0;
   right: 0;
 }
+
+
+
+.footer {
+  max-width: 880px;
+  margin: 0 auto;
+}
