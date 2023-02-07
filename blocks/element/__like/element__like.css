@@ -1,0 +1,15 @@
+.element__like {
+  width: 22px;
+  height: 19px;
+  background-image: url(/images/heart_disablet.svg);
+  background-color: transparent;
+  background-size: contain;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  border: none;
+  transition: background-image 1.5s;
+}
+
+.element__like:hover {
+  background-image: url(/images/heart_hover.svg);
+}

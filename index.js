@@ -32,7 +32,6 @@ popupBtn.addEventListener('click', clickSaveButton);
 
 document.addEventListener('keydown', function(enter){
   if (enter.code === 'Enter'){
-    console.log('Enter!!!');
     enter.preventDefault();
     clickSaveButton();
   }
