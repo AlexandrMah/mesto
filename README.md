@@ -11,4 +11,4 @@
 * создание модального окна;
 * программирование на языке js.
 
-## Ссылка на GitHub Pages: 
+## Ссылка на GitHub Pages: https://alexandrmah.github.io/mesto/
