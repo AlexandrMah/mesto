@@ -1,10 +1,10 @@
-.profole__info-user{
+.profile__info-user{
   display: flex;
   align-items: center;
 }
 
 @media screen and (max-width: 550px){
-  .profole__info-user {
+  .profile__info-user {
     flex-direction: column;
     gap: 26px;
   }
