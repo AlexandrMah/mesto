@@ -79,6 +79,12 @@
   grid-column: 2;
   grid-row: 1;
   transition: opacity 1.5s;
+  background-image: url(/images/Edit_Button.svg);
+  background-color: transparent;
+  background-size: contain;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  border: none;
 }
 
 .profile__edit-button:hover{

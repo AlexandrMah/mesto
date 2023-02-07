@@ -4,14 +4,10 @@ let profileSpecialization = content.querySelector('.profile__specialization');
 let editButton = content.querySelector('.profile__edit-button');
 
 let popup = document.querySelector('.popup');
-console.log(popup);
 let popupName = popup.querySelector('.popup__name');
 let popupSpecialization = popup.querySelector('.popup__specialization');
 let popupBtn = popup.querySelector('.popup__btn');
 let popupCloseBtn = popup.querySelector('.popup__close-btn');
-
-console.log(profileName.innerHTML);
-
 
 function clickEditButton(){
   popupName.value = profileName.innerHTML;
@@ -33,3 +29,11 @@ function clickSaveButton(){
 }
 
 popupBtn.addEventListener('click', clickSaveButton);
+
+document.addEventListener('keydown', function(enter){
+  if (enter.code === 'Enter'){
+    console.log('Enter!!!');
+    enter.preventDefault();
+    clickSaveButton();
+  }
+})
