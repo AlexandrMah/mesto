@@ -1,11 +1,11 @@
 .profole__info-user{
   display: flex;
-  align-items: center
+  align-items: center;
 }
 
 @media screen and (max-width: 550px){
   .profole__info-user {
     flex-direction: column;
-    gap: 26px
+    gap: 26px;
   }
 }
