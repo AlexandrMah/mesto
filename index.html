@@ -19,75 +19,75 @@
           <div class="profile__info">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
             <p class="profile__specialization">Исследователь океана</p>
-            <button class="profile__edit-button"></button>
+            <button type="button" class="profile__edit-button"></button>
           </div>
         </div>
-        <a href="#" class="profile__add-button"><img src="./images/cross.svg" alt="Кнопка добавления." class="profile__add-button-img"></a>
+        <button type="button" class="profile__add-button"><img src="./images/cross.svg" alt="Кнопка добавления." class="profile__add-button-img"></button>
       </section>
 
-      <section class="elements">
-        <div class="element">
+      <section class="elements" aria-label="element">
+        <article class="element">
           <img src="./images/kirill-pershin1.jpg" alt="Фото достопримечательности, Карачаевск." class="element__image">
           <div class="element__info">
             <h2 class="element__name">Карачаевск</h2>
-            <a href="#" class="element__like"></a>
+            <button type="button" class="element__like"></button>
           </div>
-        </div>
-        <div class="element">
+        </article>
+        <article class="element">
           <img src="./images/kirill-pershin2.png" alt="Фото достопримечательности, Карачаевск." class="element__image">
           <div class="element__info">
             <h2 class="element__name">Гора Эльбрус</h2>
-            <a href="#" class="element__like"></a>
+            <button type="button" class="element__like"></button>
           </div>
-        </div>
-        <div class="element">
+        </article>
+        <article class="element">
           <img src="./images/kirill-pershin3.png" alt="Фото достопримечательности, Карачаевск." class="element__image">
           <div class="element__info">
             <h2 class="element__name">Домбай</h2>
-            <a href="#" class="element__like"></a>
+            <button type="button" class="element__like"></button>
           </div>
-        </div>
-        <div class="element">
+        </article>
+        <article class="element">
           <img src="./images/kirill-pershin4.png" alt="Фото достопримечательности, Карачаевск." class="element__image">
           <div class="element__info">
             <h2 class="element__name">Гора Эльбрус</h2>
-            <a href="#" class="element__like"></a>
+            <button type="button" class="element__like"></button>
           </div>
-        </div>
-        <div class="element">
+        </article>
+        <article class="element">
           <img src="./images/kirill-pershin5.png" alt="Фото достопримечательности, Карачаевск." class="element__image">
           <div class="element__info">
             <h2 class="element__name">Домбай</h2>
-            <a href="#" class="element__like"></a>
+            <button type="button" class="element__like"></button>
           </div>
-        </div>
-        <div class="element">
+        </article>
+        <article class="element">
           <img src="./images/kirill-pershin6.png" alt="Фото достопримечательности, Карачаевск." class="element__image">
           <div class="element__info">
             <h2 class="element__name">Карачаево-Черкессия</h2>
-            <a href="#" class="element__like"></a>
+            <button type="button" class="element__like"></button>
           </div>
-        </div>
+        </article>
       </section>
     </main>
 
     <footer class="footer">
-      <img src="./images/MestoRussia.svg" alt="2020 Места России." class="footer__image">
+      <p class="footer__info">&#169; 2020 Mesto Russia</p>
     </footer>
   </div>
 
   <section class="popup">
     <div class="popup__container">
       <h2 class="popup__title">Редактировать профиль</h2>
-      <div class="popup__input">
-        <input type="text" value="" class="popup__name">
-        <input type="text" value="" class="popup__specialization">
-        <button class="popup__btn">Сохранить</button>
-      </div>
-      <button class="popup__close-btn"></button>
+      <form action="#" method="get" class="popup__input">
+        <input type="text" value="" name="name" class="popup__name popup__element_key_name">
+        <input type="text" value="" name="specialization" class="popup__name popup__element_key_specialization">
+        <button type="submit" class="popup__btn">Сохранить</button>
+      </form>
+      <button type="button" class="popup__close-btn"></button>
     </div>
   </section>
 
-  <script src='index.js'></script>
+  <script src='./scripts/index.js'></script>
 </body>
 </html>

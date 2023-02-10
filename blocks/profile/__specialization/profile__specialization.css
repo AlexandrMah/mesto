@@ -1,14 +1,17 @@
 .profile__specialization{
   margin: 0;
-  font-family: 'Inter';
-  font-style: normal;
+  max-width: 450px;
   font-weight: 400;
   font-size: 18px;
   line-height: 22px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 @media screen and (max-width: 550px){
   .profile__specialization {
+    max-width: 200px;
     font-size: 14px;
     line-height: 17px;
     margin: 0 auto;

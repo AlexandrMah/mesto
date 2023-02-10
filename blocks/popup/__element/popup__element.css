@@ -1,9 +1,7 @@
-.popup__specialization{
+.popup__name{
   width: 100%;
   height: 27px;
-  margin-bottom: 48px;
-  font-family: 'Inter';
-  font-style: normal;
+  margin-bottom: 30px;
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
