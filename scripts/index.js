@@ -10,18 +10,14 @@ let jobInput = popup.querySelector('.popup__element_key_specialization');
 let popupBtn = popup.querySelector('.popup__btn');
 let popupCloseBtn = popup.querySelector('.popup__close-btn');
 
-function toggleOpenPopup() {
-  popup.classList.toggle('popup_opened');
-}
-
 function clickEditButton(){
   nameInput.value = profileName.textContent;
   jobInput.value = profileSpecialization.textContent;
-  toggleOpenPopup()
+  popup.classList.add('popup_opened');
 }
 
 function clickCloseButton(){
-  toggleOpenPopup()
+  popup.classList.remove('popup_opened');
 }
 
 function handleFormSubmit (evt) {
@@ -30,7 +26,7 @@ function handleFormSubmit (evt) {
   profileName.textContent = nameInput.value;
   profileSpecialization.textContent = jobInput.value;
 
-  toggleOpenPopup()
+  clickCloseButton();
 }
 
 editButton.addEventListener('click', clickEditButton);
