@@ -79,9 +79,13 @@
   <section class="popup">
     <div class="popup__container">
       <h2 class="popup__title">Редактировать профиль</h2>
-      <form action="#" method="get" class="popup__input">
-        <input type="text" value="" name="name" class="popup__element popup__element_key_name">
-        <input type="text" value="" name="specialization" class="popup__element popup__element_key_specialization">
+      <form action="/apply/" method="POST" name="formEditProfile" class="popup__input">
+        <div class="popup__field">
+          <input type="text" value="" name="name" class="popup__element popup__element_key_name">
+        </div>
+        <div class="popup__field">
+          <input type="text" value="" name="specialization" class="popup__element   popup__element_key_specialization">
+        </div>
         <button type="submit" class="popup__btn">Сохранить</button>
       </form>
       <button type="button" class="popup__close-btn"></button>

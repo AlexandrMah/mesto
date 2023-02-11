@@ -3,13 +3,13 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 51px;
+  margin-bottom: 50px;
   gap: 20px;
 }
 
 @media screen and (max-width: 950px){
   .profile {
-    margin: 0 27px 41px 27px;
+    margin: 0 19px 36px 19px;
     gap: 0;
   }
 }
