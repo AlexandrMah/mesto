@@ -1,6 +1,7 @@
 .elements {
   display: grid;
   grid-template-columns: auto auto auto;
+  justify-content: start;
   gap: 20px 17px;
 }
 
