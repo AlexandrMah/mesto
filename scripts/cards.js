@@ -32,6 +32,11 @@ const handleDelete = (evt) => {
   evt.target.closest('.element').remove();
 };
 
+const handleLike = (evt) => {
+  const thisLike = evt.target.closest('.element__like');
+  thisLike.classList.toggle('element__like_active');
+};
+
 getItemElement = (title) => {  
   const newItemElement = template.content.cloneNode(true);
   const newItemName = newItemElement.querySelector('.element__name');
@@ -40,9 +45,9 @@ getItemElement = (title) => {
   newItemImage.src = title.link;
 
   const deleteButton = newItemElement.querySelector('.element__trash');
-  /*const duplicateButton = newItemElement.querySelector('.button__duplicate');*/
+  const likeButton = newItemElement.querySelector('.element__like');
   deleteButton.addEventListener('click', handleDelete)
-  /*duplicateButton.addEventListener('click', handleDuplicate)*/
+  likeButton.addEventListener('click', handleLike)
   return newItemElement;
 }
 
@@ -51,6 +56,5 @@ const renderItem = (wrap, title) => {
 };
 
 initialCards.forEach((title) => {
-  console.log(title.name);
   renderItem(itemListWrapper, title)
 });
