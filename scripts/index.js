@@ -30,19 +30,19 @@ const template = document.querySelector('#card');
 
 /*--------------------------------------------------------*/
 
-let content = document.querySelector('.content');
-let profileName = content.querySelector('.profile__name');
-let profileSpecialization = content.querySelector('.profile__specialization');
-let editButton = content.querySelector('.profile__edit-button');
-let addButton = content.querySelector('.profile__add-button')
+const content = document.querySelector('.content');
+const profileName = content.querySelector('.profile__name');
+const profileSpecialization = content.querySelector('.profile__specialization');
+const editButton = content.querySelector('.profile__edit-button');
+const addButton = content.querySelector('.profile__add-button')
 
-let popup = document.querySelector('.popup');
-let formElement = popup.querySelector('.popup__input');
-let titleInput = popup.querySelector('.popup__title');
-let nameInput = popup.querySelector('.popup__element_key_name');
-let jobInput = popup.querySelector('.popup__element_key_specialization');
-let popupBtn = popup.querySelector('.popup__btn');
-let popupCloseBtn = popup.querySelector('.popup__close-btn');
+const popup = document.querySelector('.popup');
+const formElement = popup.querySelector('.popup__input');
+const titleInput = popup.querySelector('.popup__title');
+const nameInput = popup.querySelector('.popup__element_key_name');
+const jobInput = popup.querySelector('.popup__element_key_specialization');
+const popupBtn = popup.querySelector('.popup__btn');
+const popupCloseBtn = popup.querySelector('.popup__close-btn');
 
 /*-----------------------------------------------------------*/
 
@@ -55,17 +55,19 @@ const itemImage = document.querySelector('.elements');
 
 /*-----------------------------------------------------------*/
 
+const popupCard = document.querySelector('.popup-card');
+const popupCardInput = popupCard.querySelector('.popup-card__input');
+const popupCardCloseBtn = popupCard.querySelector('.popup-card__close-btn');
+const popupCardBtn = popupCard.querySelector('.popup-card__btn')
+const popupCardName = popupCard.querySelector('.popup-card__element_key_name');
+const popupCardImg = popupCard.querySelector('.popup-card__element_key_img');
+
+/*------------------------------------------------------------*/
+
 function clickEditButton(){
   titleInput.textContent = 'Редактировать профиль';
   nameInput.value = profileName.textContent;
   jobInput.value = profileSpecialization.textContent;
-  popup.classList.add('popup_opened');
-}
-
-function clickAddButton(){
-  titleInput.textContent = 'Новое место';
-  nameInput.placeholder = 'Название';
-  jobInput.placeholder = 'Ссылка на картинку';
   popup.classList.add('popup_opened');
 }
 
@@ -82,7 +84,34 @@ function handleFormSubmit (evt) {
   clickCloseButton();
 }
 
-/*-----------------------------------------------------------*/
+/*----------------------------*/
+function clickAddButton(){
+  popupCard.classList.add('popup-card_opened');
+}
+
+function clickCardCloseButton(){
+  popupCard.classList.remove('popup-card_opened');
+}
+
+function creatNewCard (evt){
+  evt.preventDefault();
+  const newItemElement = template.content.cloneNode(true);
+  const newItemName = newItemElement.querySelector('.element__name');
+  const newItemImage = newItemElement.querySelector('.element__image');
+  newItemName.textContent = popupCardName.value;
+  newItemImage.src = popupCardImg.value;
+
+  const deleteButton = newItemElement.querySelector('.element__trash');
+  const likeButton = newItemElement.querySelector('.element__like');
+  deleteButton.addEventListener('click', handleDelete)
+  likeButton.addEventListener('click', handleLike)
+
+  itemListWrapper.append(newItemElement);
+
+  clickCardCloseButton()  
+}
+
+/*-----------------------------*/
 
 const handleDelete = (evt) => {
   evt.target.closest('.element').remove();
@@ -123,10 +152,6 @@ const clickViewImg  = (evt) => {
   const thisImgImage = evt.target.closest('.element__image');
   const thisImgName = thisImg.querySelector('.element__name');
 
-  console.log(thisImg);
-  console.log(thisImgImage.src);
-  console.log(thisImgName.textContent);
-
   popupImgImage.src = thisImgImage.src;
   popupImgName.textContent = thisImgName.textContent;
   
@@ -141,9 +166,10 @@ function clickCloseButtonImg(){
 itemImage.addEventListener('click', clickViewImg);
 popupImgCloseBtn.addEventListener('click', clickCloseButtonImg);
 
-/*-----------------------------------------------------------*/
-
 editButton.addEventListener('click', clickEditButton);
 popupCloseBtn.addEventListener('click', clickCloseButton);
 formElement.addEventListener('submit', handleFormSubmit);
+
 addButton.addEventListener('click', clickAddButton);
+popupCardCloseBtn.addEventListener('click', clickCardCloseButton);
+popupCardInput.addEventListener('submit', creatNewCard);
