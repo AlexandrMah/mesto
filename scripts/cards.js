@@ -1,60 +1,30 @@
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-]; 
+const popupImg = document.querySelector('.popup-img');
+const popupImgImage = popupImg.querySelector('.popup-img__image');
+const popupImgName = popupImg.querySelector('.popup-img__name');
+const popupImgCloseBtn = popupImg.querySelector('.popup-img__close-btn')
 
-const itemListWrapper = document.querySelector('.elements');
-const template = document.querySelector('#card');
+/*-------------------------------------------------*/
+const itemImage = document.querySelector('.elements');
+/*------------------------------------------------------*/
+const clickViewImg  = (evt) => {
+  const thisImg = evt.target.closest('.element');
+  const thisImgImage = evt.target.closest('.element__image');
+  const thisImgName = thisImg.querySelector('.element__name');
 
-const handleDelete = (evt) => {
-  evt.target.closest('.element').remove();
-};
+  console.log(thisImg);
+  console.log(thisImgImage.src);
+  console.log(thisImgName.textContent);
 
-const handleLike = (evt) => {
-  const thisLike = evt.target.closest('.element__like');
-  thisLike.classList.toggle('element__like_active');
-};
-
-getItemElement = (title) => {  
-  const newItemElement = template.content.cloneNode(true);
-  const newItemName = newItemElement.querySelector('.element__name');
-  const newItemImage = newItemElement.querySelector('.element__image');
-  newItemName.textContent = title.name;
-  newItemImage.src = title.link;
-
-  const deleteButton = newItemElement.querySelector('.element__trash');
-  const likeButton = newItemElement.querySelector('.element__like');
-  deleteButton.addEventListener('click', handleDelete)
-  likeButton.addEventListener('click', handleLike)
-  return newItemElement;
+  popupImgImage.src = thisImgImage.src;
+  popupImgName.textContent = thisImgName.textContent;
+  
+  popupImg.classList.add('popup-img_opened');
 }
 
-const renderItem = (wrap, title) => {
-  wrap.append(getItemElement(title))
-};
+function clickCloseButtonImg(){
+  popupImg.classList.remove('popup-img_opened');
+}
 
-initialCards.forEach((title) => {
-  renderItem(itemListWrapper, title)
-});
+
+itemImage.addEventListener('click', clickViewImg);
+popupImgCloseBtn.addEventListener('click', clickCloseButtonImg);

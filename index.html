@@ -26,54 +26,7 @@
       </section>
 
       <section class="elements" aria-label="element">
-        <!-- <article class="element">
-          <img src="./images/kirill-pershin1.jpg" alt="Фото достопримечательности, Карачаевск." class="element__image">
-          <div class="element__info">
-            <h2 class="element__name">Карачаевск</h2>
-            <button type="button" class="element__like"></button>
-          </div>
-          <button type="button" class="element__trash"></button>
-        </article>
-        <article class="element">
-          <img src="./images/kirill-pershin2.png" alt="Фото достопримечательности, Карачаевск." class="element__image">
-          <div class="element__info">
-            <h2 class="element__name">Гора Эльбрус</h2>
-            <button type="button" class="element__like"></button>
-          </div>
-          <button type="button" class="element__trash"></button>
-        </article>
-        <article class="element">
-          <img src="./images/kirill-pershin3.png" alt="Фото достопримечательности, Карачаевск." class="element__image">
-          <div class="element__info">
-            <h2 class="element__name">Домбай</h2>
-            <button type="button" class="element__like"></button>
-          </div>
-          <button type="button" class="element__trash"></button>
-        </article>
-        <article class="element">
-          <img src="./images/kirill-pershin4.png" alt="Фото достопримечательности, Карачаевск." class="element__image">
-          <div class="element__info">
-            <h2 class="element__name">Гора Эльбрус</h2>
-            <button type="button" class="element__like"></button>
-          </div>
-          <button type="button" class="element__trash"></button>
-        </article>
-        <article class="element">
-          <img src="./images/kirill-pershin5.png" alt="Фото достопримечательности, Карачаевск." class="element__image">
-          <div class="element__info">
-            <h2 class="element__name">Домбай</h2>
-            <button type="button" class="element__like"></button>
-          </div>
-          <button type="button" class="element__trash"></button>
-        </article>
-        <article class="element">
-          <img src="./images/kirill-pershin6.png" alt="Фото достопримечательности, Карачаевск." class="element__image">
-          <div class="element__info">
-            <h2 class="element__name">Карачаево-Черкессия</h2>
-            <button type="button" class="element__like"></button>
-          </div>
-          <button type="button" class="element__trash"></button>
-        </article>-->
+
       </section>
     </main>
 
@@ -84,13 +37,13 @@
 
   <section class="popup">
     <div class="popup__container">
-      <h2 class="popup__title">Редактировать профиль</h2>
+      <h2 class="popup__title"></h2>
       <form action="/apply/" method="POST" name="formEditProfile" class="popup__input">
         <div class="popup__field">
           <input type="text" value="" name="name" class="popup__element popup__element_key_name">
         </div>
         <div class="popup__field">
-          <input type="text" value="" name="specialization" class="popup__element   popup__element_key_specialization">
+          <input type="text" value="" name="specialization" class="popup__element popup__element_key_specialization">
         </div>
         <button type="submit" class="popup__btn">Сохранить</button>
       </form>
@@ -98,9 +51,17 @@
     </div>
   </section>
 
+  <section class="popup-img">
+    <div class="popup-img__container">
+      <img src='' class="popup-img__image">
+      <h2 class="popup-img__name"></h2>
+      <button type="button" class="popup-img__close-btn"></button>
+    </div>
+  </section>
+
   <template id="card">
     <article class="element">
-      <img src="#" class="element__image">
+      <button type='button' class="element__button-img"><img src="#" class="element__image"></button>
       <div class="element__info">
         <h2 class="element__name"></h2>
         <button type="button" class="element__like"></button>
