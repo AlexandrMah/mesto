@@ -100,6 +100,7 @@ function creatNewCard (evt){
   const newItemImage = newItemElement.querySelector('.element__image');
   newItemName.textContent = popupCardName.value;
   newItemImage.src = popupCardImg.value;
+  newItemImage.alt = popupCardName.value;
 
   const deleteButton = newItemElement.querySelector('.element__trash');
   const likeButton = newItemElement.querySelector('.element__like');
@@ -128,6 +129,7 @@ getItemElement = (title) => {
   const newItemImage = newItemElement.querySelector('.element__image');
   newItemName.textContent = title.name;
   newItemImage.src = title.link;
+  newItemImage.alt = title.name;
 
   const deleteButton = newItemElement.querySelector('.element__trash');
   const likeButton = newItemElement.querySelector('.element__like');
