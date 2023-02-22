@@ -65,7 +65,6 @@ const popupCardImg = popupCard.querySelector('.popup-card__element_key_img');
 /*------------------------------------------------------------*/
 
 function clickEditButton(){
-  titleInput.textContent = 'Редактировать профиль';
   nameInput.value = profileName.textContent;
   jobInput.value = profileSpecialization.textContent;
   popup.classList.add('popup_opened');
