@@ -101,6 +101,8 @@ function creatNewCard (evt){
   newItemName.textContent = popupCardName.value;
   newItemImage.src = popupCardImg.value;
   newItemImage.alt = popupCardName.value;
+  popupCardName.value = "";
+  popupCardImg.value = "";
 
   const deleteButton = newItemElement.querySelector('.element__trash');
   const likeButton = newItemElement.querySelector('.element__like');
@@ -156,6 +158,7 @@ const clickViewImg  = (evt) => {
 
   popupImgImage.src = thisImgImage.src;
   popupImgName.textContent = thisImgName.textContent;
+  popupImgImage.alt = thisImgName.textContent;
   
   popupImg.classList.add('popup-img_opened');
 }
