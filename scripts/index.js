@@ -129,6 +129,7 @@ getItemElement = (title) => {
   const newItemElement = template.content.cloneNode(true);
   const newItemName = newItemElement.querySelector('.element__name');
   const newItemImage = newItemElement.querySelector('.element__image');
+
   newItemName.textContent = title.name;
   newItemImage.src = title.link;
   newItemImage.alt = title.name;
