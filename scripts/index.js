@@ -14,7 +14,7 @@ const openAddCard = profile.querySelector('.profile__add-button');
 
 const popupCreateCard = document.querySelector('.popup_create-card');
 const popupCloseCreateCard = popupCreateCard.querySelector('.popup__close-btn_create-card');
-const nameCreateCard = popupCreateCard.querySelector('.popup-card__element_key_name');
+const nameCreateCard = popupCreateCard.querySelector('.popup__element_key_name');
 const imageCreateCard = popupCreateCard.querySelector('.popup__element_key_img');
 const saveCreateCard = popupCreateCard.querySelector('.popup__input_create-card')
 
