@@ -21,19 +21,19 @@ const popupCloseBtn = popupEditProfole.querySelector('.popup__close-btn_edit-pro
 
 /*-----------------------------------------------------------*/
 
-const popupImg = document.querySelector('.popup_open-image');
-const popupImgImage = popupImg.querySelector('.popup__image');
-const popupImgName = popupImg.querySelector('.popup__name-image');
-const popupImgCloseBtn = popupImg.querySelector('.popup__close-btn_open-image')
+const popupImg = document.querySelector('.popup-img');
+const popupImgImage = popupImg.querySelector('.popup-img__image');
+const popupImgName = popupImg.querySelector('.popup-img__name');
+const popupImgCloseBtn = popupImg.querySelector('.popup-img__close-btn')
 
 const itemImage = document.querySelector('.elements');
 
-/*-------------окно добавления карточки----------------------------------------------*/
+/*-----------------------------------------------------------*/
 
-const popupCard = document.querySelector('.popup_create-card');
-const popupCardInput = popupCard.querySelector('.popup__input_create-card');
-const popupCardCloseBtn = popupCard.querySelector('.popup__close-btn_create-card');
-const popupCardBtn = popupCard.querySelector('.popup__btn_create-card')
+const popupCard = document.querySelector('.popup-card');
+const popupCardInput = popupCard.querySelector('.popup-card__input');
+const popupCardCloseBtn = popupCard.querySelector('.popup-card__close-btn');
+const popupCardBtn = popupCard.querySelector('.popup-card__btn')
 const popupCardName = popupCard.querySelector('.popup-card__element_key_name');
 const popupCardImg = popupCard.querySelector('.popup-card__element_key_img');
 
@@ -60,11 +60,11 @@ function handleFormSubmit (evt) {
 
 /*----------------------------*/
 function clickAddButton(){
-  popupCard.classList.add('popup_opened');
+  popupCard.classList.add('popup-card_opened');
 }
 
 function clickCardCloseButton(){
-  popupCard.classList.remove('popup_opened');
+  popupCard.classList.remove('popup-card_opened');
 }
 
 function creatNewCard (evt){
@@ -75,7 +75,8 @@ function creatNewCard (evt){
   newItemName.textContent = popupCardName.value;
   newItemImage.src = popupCardImg.value;
   newItemImage.alt = popupCardName.value;
-
+  popupCardName.value = "";
+  popupCardImg.value = "";
 
   const deleteButton = newItemElement.querySelector('.element__trash');
   const likeButton = newItemElement.querySelector('.element__like');
@@ -84,12 +85,10 @@ function creatNewCard (evt){
 
   itemListWrapper.prepend(newItemElement);
 
-  clickCardCloseButton()
-  popupCardName.value = "";
-  popupCardImg.value = "";
+  clickCardCloseButton()  
 }
 
-/*---------Работа с генерированными картточками--------------------*/
+/*-----------------------------*/
 
 const handleDelete = (evt) => {
   evt.target.closest('.element').remove();
@@ -137,11 +136,11 @@ const clickViewImg  = (evt) => {
   popupImgName.textContent = thisImgName.textContent;
   popupImgImage.alt = thisImgName.textContent;
   
-  popupImg.classList.add('popup_opened');
+  popupImg.classList.add('popup-img_opened');
 }
 
 function clickCloseButtonImg(){
-  popupImg.classList.remove('popup_opened');
+  popupImg.classList.remove('popup-img_opened');
 }
 
 

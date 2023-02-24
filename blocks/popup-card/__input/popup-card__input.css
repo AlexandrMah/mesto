@@ -1,9 +1,0 @@
-.popup-card__input{
-  margin: 54px 36px 0;
-}
-
-@media screen and (max-width: 550px){
-  .popup-card__input{
-    margin: 75px 22px 0;
-  }
-}

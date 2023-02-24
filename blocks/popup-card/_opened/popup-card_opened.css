@@ -1,6 +1,0 @@
-.popup-card_opened{
-  opacity: 1;
-  z-index: 3;
-  height: 100%;
-  transition: height 0ms 0ms, opacity 600ms 0ms;
-}
