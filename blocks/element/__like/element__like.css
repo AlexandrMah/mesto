@@ -9,7 +9,3 @@
   border: none;
   transition: background-image 1.5s;
 }
-
-.element__like:hover {
-  background-image: url(./../../../images/heart_hover.svg);
-}

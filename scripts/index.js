@@ -108,7 +108,7 @@ function creatNewCard (evt){
   deleteButton.addEventListener('click', handleDelete)
   likeButton.addEventListener('click', handleLike)
 
-  itemListWrapper.append(newItemElement);
+  itemListWrapper.prepend(newItemElement);
 
   clickCardCloseButton()  
 }
@@ -122,6 +122,7 @@ const handleDelete = (evt) => {
 const handleLike = (evt) => {
   const thisLike = evt.target.closest('.element__like');
   thisLike.classList.toggle('element__like_active');
+  thisLike.classList.toggle('element__like_hover');
 };
 
 getItemElement = (title) => {  
@@ -142,7 +143,7 @@ getItemElement = (title) => {
 }
 
 const renderItem = (wrap, title) => {
-  wrap.append(getItemElement(title))
+  wrap.prepend(getItemElement(title))
 };
 
 initialCards.forEach((title) => {
