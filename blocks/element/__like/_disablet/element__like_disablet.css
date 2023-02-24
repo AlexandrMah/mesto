@@ -1,0 +1,7 @@
+.element__like_disablet{
+  background-image: url(./../../../../images/heart_disablet.svg);
+}
+
+.element__like_disablet:hover {
+  background-image: url(./../../../../images/heart_hover.svg);
+}

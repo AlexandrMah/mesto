@@ -50,7 +50,7 @@ const handleDelete = (evt) => {
 const handleLike = (evt) => {
   const thisLike = evt.target.closest('.element__like');
   thisLike.classList.toggle('element__like_active');
-  thisLike.classList.toggle('element__like_hover');
+  thisLike.classList.toggle('element__like_disablet');
 };
 
 // добавление информации о пользователе при открытии окна

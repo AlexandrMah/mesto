@@ -28,7 +28,7 @@
 @import url(./../blocks/element/__name/element__name.css);
 @import url(./../blocks/element/__like/element__like.css);
 @import url(./../blocks/element/__like/_active/element__like_active.css);
-@import url(./../blocks/element/__like/_hover/element__like_hover.css);
+@import url(./../blocks/element/__like/_disablet/element__like_disablet.css);
 @import url(./../blocks/element/__trash/element__trash.css);
 
 @import url(./../blocks/footer/footer.css);
