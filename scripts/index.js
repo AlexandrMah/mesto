@@ -101,8 +101,7 @@ initialCards.forEach((info) => {
 function addNewCard (evt){
   evt.preventDefault();
 
-  itemListWrapper.prepend(createNewCard(nameCreateCard.value, imageCreateCard.value));
-  console.log(itemListWrapper);
+  itemListWrapper.prepend(createNewCard(nameCreateCard.value, imageCreateCard.value));  
 
   clickClosePopup(popupCreateCard)
   nameCreateCard.value = "";
