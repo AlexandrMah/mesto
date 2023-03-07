@@ -38,13 +38,15 @@
   <section class="popup popup_edit-profile">
     <div class="popup__container popup__container_edit-profile">
       <h2 class="popup__title popup__title_edit-profile">Редактировать профиль</h2>
-      <form action="/apply/" method="POST" name="formEditProfile" class="popup__input popup__input_edit-profile">
-        <div class="popup__field popup__field">
-          <input type="text" value="" name="name" class="popup__element popup__element_key_name">
-        </div>
-        <div class="popup__field">
-          <input type="text" value="" name="specialization" class="popup__element popup__element_key_specialization">
-        </div>
+      <form action="/apply/" method="POST" name="formEditProfile" class="popup__input popup__input_edit-profile" novalidate>
+        <label class="popup__field">
+          <input type="text" value="Имя" placeholder="Имя" name="name" id="profileName-input" class="popup__element popup__element_key_name" required minlength="2" maxlength="40">
+          <span class="profileName-input-error popup__input-error"></span>
+        </label>
+        <label class="popup__field">
+          <input type="text" value="О себе" placeholder="О себе" name="specialization" id="specialization-input" class="popup__element popup__element_key_specialization" required minlength="2" maxlength="200">
+          <span class="specialization-input-error popup__input-error"></span>
+        </label>
         <button type="submit" class="popup__btn popup__btn_edit-profile">Сохранить</button>
       </form>
       <button type="button" class="popup__close-btn popup__close-btn_edit-profile"></button>
@@ -54,13 +56,15 @@
   <section class="popup popup_create-card">
     <div class="popup__container popup__container_create-card">
       <h2 class="popup__title popup__title_create-card">Новое место</h2>
-      <form action="/apply/" method="POST" name="formAddCards" class="popup__input popup__input_create-card">
-        <div class="popup__field">
-          <input type="text" placeholder="Название" value="" name="name" class="popup__element popup__element_key_name">
-        </div>
-        <div class="popup__field">
-          <input type="url" placeholder="Ссылка на картинку" value="" name="url" class="popup__element popup__element_key_img">
-        </div>
+      <form action="/apply/" method="POST" name="formAddCards" class="popup__input popup__input_create-card" novalidate>
+        <label class="popup__field">
+          <input type="text" placeholder="Название" value="" name="name" id="name-input" class="popup__element popup__element_key_name" required minlength="2" maxlength="30">
+          <span class="name-input-error popup__input-error"></span>
+        </label>
+        <label class="popup__field">
+          <input type="url" placeholder="Ссылка на картинку" value="" name="url" id="url-input" class="popup__element popup__element_key_img" required>
+          <span class="url-input-error popup__input-error"></span>
+        </label>
         <button type="submit" class="popup__btn popup__btn_create-card">Сохранить</button>
       </form>
       <button type="button" class=" popup__close-btn popup__close-btn_create-card"></button>
@@ -88,5 +92,6 @@
 
   <script src="./scripts/data.js"></script>
   <script src='./scripts/index.js'></script>
+  <script src="./scripts/validate.js"></script>
 </body>
 </html>

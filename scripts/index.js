@@ -28,6 +28,8 @@ const popupImgImage = popupImg.querySelector('.popup__image');
 const popupImgName = popupImg.querySelector('.popup__name-image');
 const buttonPopupCloseImgBtn = popupImg.querySelector('.popup__close-btn_open-image')
 
+//реализация закрытия окон через нажатие в стороне от попапа или ESC
+const popup = document.querySelector('.popup')
 /*------------------------------------------*/
 //функции
 
@@ -130,3 +132,19 @@ formSubmitAddCard.addEventListener('submit', addNewCard);
 
 //окно просмотра карточек (вызов функций)
 buttonPopupCloseImgBtn.addEventListener('click', clickClose = (evt) => {clickClosePopup(popupImg)})
+
+//реализация закрытия окон через нажатие в стороне от попапа или ESC
+ 
+popup.addEventListener('click', (e) => {
+	const withinBoundaries = e.composedPath().includes(popupImg);
+ 
+	if (!withinBoundaries) {
+		clickClosePopup(popupImg); // скрываем элемент т к клик был за его пределами
+	}
+})
+
+document.addEventListener('keydown', function(e) {
+	if( e.keyCode == 27 ){ // код клавиши Escape, но можно использовать e.key
+		clickClosePopup(popupImg);
+	}
+});
