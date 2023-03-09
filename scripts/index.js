@@ -134,7 +134,7 @@ formSubmitAddCard.addEventListener('submit', addNewCard);
 buttonPopupCloseImgBtn.addEventListener('click', clickClose = (evt) => {clickClosePopup(popupImg)})
 
 //реализация закрытия окон через нажатие в стороне от попапа или ESC
-const result = (element, popupSector) => {
+const closePopupClick = (element) => {
   element.addEventListener('click', (evt) => {  
     if (evt.target === evt.currentTarget) {
       clickClosePopup(element);
@@ -143,8 +143,7 @@ const result = (element, popupSector) => {
 };
 
 popup.forEach((element) => {
-  const popupSector = element.querySelector('.popup_sector');
-  result(element, popupSector);
+  closePopupClick(element);
 });
 
 // Закрытие попапа на кнопку Esc
