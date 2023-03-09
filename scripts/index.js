@@ -26,10 +26,10 @@ const template = document.querySelector('#card').content;
 const popupImg = document.querySelector('.popup_open-image');
 const popupImgImage = popupImg.querySelector('.popup__image');
 const popupImgName = popupImg.querySelector('.popup__name-image');
-const buttonPopupCloseImgBtn = popupImg.querySelector('.popup__close-btn_open-image')
+const buttonPopupCloseImgBtn = popupImg.querySelector('.popup__close-btn_open-image');
 
 //реализация закрытия окон через нажатие в стороне от попапа или ESC
-const popup = document.querySelector('.popup')
+const popup = document.querySelectorAll('.popup');
 /*------------------------------------------*/
 //функции
 
@@ -134,17 +134,23 @@ formSubmitAddCard.addEventListener('submit', addNewCard);
 buttonPopupCloseImgBtn.addEventListener('click', clickClose = (evt) => {clickClosePopup(popupImg)})
 
 //реализация закрытия окон через нажатие в стороне от попапа или ESC
- 
-popup.addEventListener('click', (e) => {
-	const withinBoundaries = e.composedPath().includes(popupImg);
- 
-	if (!withinBoundaries) {
-		clickClosePopup(popupImg); // скрываем элемент т к клик был за его пределами
-	}
-})
+const result = (element, popupSector) => {
+  element.addEventListener('click', (evt) => {  
+    if (evt.target === evt.currentTarget) {
+      clickClosePopup(element);
+	  };
+  });
+};
 
+popup.forEach((element) => {
+  const popupSector = element.querySelector('.popup__container_sector');
+  result(element, popupSector);
+});
+
+// Закрытие попапа на кнопку Esc
 document.addEventListener('keydown', function(e) {
-	if( e.keyCode == 27 ){ // код клавиши Escape, но можно использовать e.key
-		clickClosePopup(popupImg);
+  const popupCloseEsc = document.querySelector('.popup_opened');
+	if( e.keyCode == 27 ){ 
+		clickClosePopup(popupCloseEsc);
 	}
 });
