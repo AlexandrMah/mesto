@@ -143,7 +143,7 @@ const result = (element, popupSector) => {
 };
 
 popup.forEach((element) => {
-  const popupSector = element.querySelector('.popup__container_sector');
+  const popupSector = element.querySelector('.popup_sector');
   result(element, popupSector);
 });
 
