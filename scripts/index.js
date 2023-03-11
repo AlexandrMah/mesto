@@ -39,7 +39,6 @@ const popups = document.querySelectorAll('.popup');
 const clickOpenPopup = (popup) => {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', pressEsc);
-  inactiveSubmitButton(submitCreateCard);
 }
 
 //закрытие окна
@@ -130,7 +129,10 @@ buttonClosePopupProfile.addEventListener('click', clickClose = (evt) => {clickCl
 popupEditProfole.addEventListener('submit', handleFormSubmitEditProfile);
 
 //окно добавления карточек (вызов функций)
-buttonOpenPopupAddCard.addEventListener('click', cardOpen = (evt) => {clickOpenPopup(popupCreateCard)});
+buttonOpenPopupAddCard.addEventListener('click', cardOpen = (evt) => {
+  clickOpenPopup(popupCreateCard);
+  inactiveSubmitButton(submitCreateCard);
+});
 buttonClosePopupAddCard.addEventListener('click', clickClose = (evt) => {clickClosePopup(popupCreateCard)});
 formSubmitAddCard.addEventListener('submit', addNewCard);
 
