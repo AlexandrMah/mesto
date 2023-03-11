@@ -87,6 +87,12 @@ const toggleButtonState = (inputList, buttonElement, selectors) => {
     buttonElement.classList.remove(selectors.inactiveButtonClass);
   }
 };
+
+// Неактивная кнопка отправки формы
+const inactiveSubmitButton = (button) => {
+  submitCreateCard.classList.add('popup__btn_inactive');
+  submitCreateCard.setAttribute('disabled', 'true');
+}
 //------------------------------------------------------
 
 // Вызовем функцию

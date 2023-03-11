@@ -16,7 +16,9 @@ const popupCreateCard = document.querySelector('.popup_create-card');
 const buttonClosePopupAddCard = popupCreateCard.querySelector('.popup__close-btn_create-card');
 const nameCreateCard = popupCreateCard.querySelector('.popup__element_key_name');
 const imageCreateCard = popupCreateCard.querySelector('.popup__element_key_img');
-const formSubmitAddCard = popupCreateCard.querySelector('.popup__input_create-card')
+const formSubmitAddCard = popupCreateCard.querySelector('.popup__input_create-card');
+
+const submitCreateCard = popupCreateCard.querySelector('.popup__btn_create-card');
 
 //создание карточек
 const itemListWrapper = document.querySelector('.elements');
@@ -34,16 +36,15 @@ const popups = document.querySelectorAll('.popup');
 //функции
 
 // открытие окна
-const clickOpenPopup = (name) => {
-  name.classList.add('popup_opened');
+const clickOpenPopup = (popup) => {
+  popup.classList.add('popup_opened');
   document.addEventListener('keydown', pressEsc);
-  document.querySelector('.popup__btn_create-card').classList.add('popup__btn_inactive');
-  document.querySelector('.popup__btn_create-card').setAttribute('disabled', 'true');
+  inactiveSubmitButton(submitCreateCard);
 }
 
 //закрытие окна
-const clickClosePopup = (name) => {
-  name.classList.remove('popup_opened');
+const clickClosePopup = (popup) => {
+  popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', pressEsc);
 }
 
