@@ -1,5 +1,6 @@
 import initialCards from "./data.js";
 import Card from "./card.js";
+import FormValidator from "./FormValidator.js";
 
 //окно редактирования профиля
 const profile = document.querySelector('.profile');
@@ -32,6 +33,25 @@ const popups = document.querySelectorAll('.popup');
 /*------------------------------------------*/
 //функции
 
+/******* Валидация*******/
+
+//Селекторы
+const selectors = {
+  formSelector: '.popup__input',
+  inputSelector: '.popup__element',
+  submitButtonSelector: '.popup__btn',
+  inactiveButtonClass: 'popup__btn_inactive',
+  inputErrorClass: 'popup__input-error_active',
+  errorClass: 'popup__element_type_error'
+};
+
+const formList = Array.from(document.querySelectorAll(selectors.formSelector));
+formList.forEach((formElement) => {
+  const formValidator = new FormValidator(selectors, submitCreateCard, formElement);
+  formValidator.enableValidation();
+});
+/*********** ***********/
+
 /*************Работа с объектом Card**************************** */
 const container = document.querySelector('.elements');
 const template = document.querySelector('#card').content;
@@ -52,7 +72,6 @@ function addNewCard (evt){
   clickClosePopup(popupCreateCard)
   formSubmitAddCard.reset();
 }
-
 /**************************************** */
 
 // открытие окна
@@ -65,6 +84,7 @@ const clickOpenPopup = (popup) => {
 const clickClosePopup = (popup) => {
   popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', pressEsc);
+  formSubmitAddCard.reset();
 }
 
 //удаление карточки
@@ -98,11 +118,13 @@ popupEditProfole.addEventListener('submit', handleFormSubmitEditProfile);
 //окно добавления карточек (вызов функций)
 buttonOpenPopupAddCard.addEventListener('click', () => {
   clickOpenPopup(popupCreateCard);
-  inactiveSubmitButton(submitCreateCard);
+  //formValidator.inactiveSubmitButton(submitCreateCard);
+  submitCreateCard.classList.add('popup__btn_inactive');
+  submitCreateCard.setAttribute('disabled', 'true');
 });
+
 buttonClosePopupAddCard.addEventListener('click',  () => {clickClosePopup(popupCreateCard)});
 formSubmitAddCard.addEventListener('submit', addNewCard);
-
 
 //окно просмотра карточек, закрытие (вызов функций)
 buttonPopupCloseImgBtn.addEventListener('click', () => {clickClosePopup(popupImg)})

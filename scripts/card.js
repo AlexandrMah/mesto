@@ -53,7 +53,7 @@ class Card {
     this._view.querySelector('.element__button-img').addEventListener('click', this._viewCard);
     /*---------*/
 
-    this._container.append(this._view);
+    this._container.prepend(this._view);
   }
 }
 
