@@ -25,8 +25,10 @@ const formSubmitAddCard = popupCreateCard.querySelector('.popup__input_create-ca
 const submitCreateCard = popupCreateCard.querySelector('.popup__btn_create-card');
 
 //окно просмотра карточек
-const popupImg = document.querySelector('.popup_open-image');
-const buttonPopupCloseImgBtn = popupImg.querySelector('.popup__close-btn_open-image');
+const popupOpenImg = document.querySelector('.popup_open-image');
+const buttonPopupCloseImgBtn = popupOpenImg.querySelector('.popup__close-btn_open-image');
+const popupImg = popupOpenImg.querySelector('.popup__image');
+const popupNameImg = popupOpenImg.querySelector('.popup__name-image');
 
 //реализация закрытия окон через нажатие в стороне от попапа или ESC
 const popups = document.querySelectorAll('.popup');
@@ -45,11 +47,13 @@ const selectors = {
   errorClass: 'popup__element_type_error'
 };
 
-const formList = Array.from(document.querySelectorAll(selectors.formSelector));
-formList.forEach((formElement) => {
-  const formValidator = new FormValidator(selectors, submitCreateCard, formElement);
-  formValidator.enableValidation();
-});
+const editFormValidator  = new FormValidator(selectors, popupEditProfole);
+editFormValidator.enableValidation();
+
+const addCardPopup = document.querySelector('.popup_create-card');
+const addFormValidator = new FormValidator(selectors, addCardPopup);
+addFormValidator.enableValidation();
+
 /*********** ***********/
 
 /*************Работа с объектом Card**************************** */
@@ -58,19 +62,25 @@ const template = document.querySelector('#card').content;
 
 //формирование первых 6 карточек
 initialCards.forEach((info) => {  
-  const card = new Card(info.name, info.link, container, template);
-  card.render();
+  const card = createCard(info.name, info.link, template, handleCardClick);
+  container.prepend(card.render());
 });
 
 //добавление новой карточки
 function addNewCard (evt){
   evt.preventDefault();
 
-  const card = new Card(nameCreateCard.value, imageCreateCard.value, container, template);
-  card.render();
+  const card = createCard(nameCreateCard.value, imageCreateCard.value, template, handleCardClick);
+  container.prepend(card.render());
 
   clickClosePopup(popupCreateCard)
-  formSubmitAddCard.reset();
+  //formSubmitAddCard.reset();
+}
+
+//создание карточки
+function createCard (name, link, template) {
+  const cardElement = new Card(name, link, template, handleCardClick);
+  return cardElement;
 }
 /**************************************** */
 
@@ -84,7 +94,9 @@ const clickOpenPopup = (popup) => {
 const clickClosePopup = (popup) => {
   popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', pressEsc);
-  formSubmitAddCard.reset();
+  if (popup != popupOpenImg) {  
+    popup.querySelector('form').reset();
+  }
 }
 
 //удаление карточки
@@ -118,16 +130,22 @@ popupEditProfole.addEventListener('submit', handleFormSubmitEditProfile);
 //окно добавления карточек (вызов функций)
 buttonOpenPopupAddCard.addEventListener('click', () => {
   clickOpenPopup(popupCreateCard);
-  //formValidator.inactiveSubmitButton(submitCreateCard);
-  submitCreateCard.classList.add('popup__btn_inactive');
-  submitCreateCard.setAttribute('disabled', 'true');
+  addFormValidator.disableSubmitButton();
 });
 
-buttonClosePopupAddCard.addEventListener('click',  () => {clickClosePopup(popupCreateCard)});
+buttonClosePopupAddCard.addEventListener('click', () => {clickClosePopup(popupCreateCard)});
 formSubmitAddCard.addEventListener('submit', addNewCard);
 
+//открытие окна просмотра окрточки
+function handleCardClick(name, link) {
+  popupImg.src = link;
+  popupNameImg.textContent = name; 
+  popupImg.alt = name;
+  clickOpenPopup(popupOpenImg); 
+}
+
 //окно просмотра карточек, закрытие (вызов функций)
-buttonPopupCloseImgBtn.addEventListener('click', () => {clickClosePopup(popupImg)})
+buttonPopupCloseImgBtn.addEventListener('click', () => {clickClosePopup(popupOpenImg)})
 
 //реализация закрытия окон через нажатие в стороне от попапа или ESC
 const closePopupClick = (element) => {
@@ -149,5 +167,3 @@ const pressEsc = (e) => {
     clickClosePopup(popupCloseEsc);
   }
 };
-
-export default pressEsc;

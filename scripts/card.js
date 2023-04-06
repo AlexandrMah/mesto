@@ -1,11 +1,15 @@
-import pressEsc from "./index.js";
-
 class Card {  
-  constructor(name, link, container, template) {
+  constructor(name, link, template, handleCardClick) {
     this._name = name;
     this._link = link;
-    this._container = container;
     this._template = template;
+    this._view = this._template.cloneNode(true).children[0];
+    this._placeName = this._view.querySelector('.element__name');
+    this._img = this._view.querySelector('.element__image');   
+    this._like = this._view.querySelector('.element__like');
+    this._handleCardClick = handleCardClick;
+    this._elementTrash = this._view.querySelector('.element__trash');
+    this._elementButtonImg = this._view.querySelector('.element__button-img');
   }
 
   //удаление карточки
@@ -15,47 +19,32 @@ class Card {
 
   //лайк
   _likeCard = () => {
-    this._like = this._view.querySelector('.element__like');
     this._like.classList.toggle('element__like_active');
     this._like.classList.toggle('element__like_disablet');
   };  
 
-  //просмотр карточки
-  _viewCard = () => {
-    this._popupImg = document.querySelector('.popup__image');
-    this._popupName = document.querySelector('.popup__name-image');
-    this._popupImg.src = this._img.src;
-    this._popupImg.alt = this._img.alt;
-    this._popupName.textContent = this._name;
-     
-    document.querySelector('.popup_open-image').classList.add('popup_opened');
-    document.addEventListener('keydown', pressEsc);
+  _setEventListeners = () => {
+    //удаление карточки
+    this._elementTrash.addEventListener('click', this._deleteCard);
+    
+    //лайк
+    this._like.addEventListener('click', this._likeCard);
+    
+    //просмотр карточки
+    this._elementButtonImg.addEventListener('click', () => {
+      this._handleCardClick(this._name, this._link)
+    });
   };
 
   render() {
-    this._view = this._template.cloneNode(true).children[0];
-
-    this._placeName = this._view.querySelector('.element__name');
-    this._img = this._view.querySelector('.element__image');    
-
     this._placeName.textContent = this._name;
     this._img.src = this._link;
-    this._img.alt = this._name;    
+    this._img.alt = this._name;
 
-    /*-----*/
-    //удаление карточки
-    this._view.querySelector('.element__trash').addEventListener('click', this._deleteCard);
-    
-    //лайк
-    this._view.querySelector('.element__like').addEventListener('click', this._likeCard);
+    this._setEventListeners();
 
-    //просмотр карточки
-    this._view.querySelector('.element__button-img').addEventListener('click', this._viewCard);
-    /*---------*/
-
-    this._container.prepend(this._view);
+    return(this._view);
   }
 }
-
 
 export default Card;
