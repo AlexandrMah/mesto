@@ -94,9 +94,6 @@ const clickOpenPopup = (popup) => {
 const clickClosePopup = (popup) => {
   popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', pressEsc);
-  if (popup != popupOpenImg) {  
-    popup.querySelector('form').reset();
-  }
 }
 
 //удаление карточки
@@ -129,7 +126,9 @@ popupEditProfole.addEventListener('submit', handleFormSubmitEditProfile);
 
 //окно добавления карточек (вызов функций)
 buttonOpenPopupAddCard.addEventListener('click', () => {
+  popupCreateCard.querySelector('form').reset();
   clickOpenPopup(popupCreateCard);
+  
   addFormValidator.disableSubmitButton();
 });
 

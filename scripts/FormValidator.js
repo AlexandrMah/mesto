@@ -4,13 +4,12 @@ class FormValidator {
   constructor(selectors, popup) {
     this._selectors = selectors;
     this._popup = popup
-    this._button = popup.querySelector('button');
     this._formElement = popup.querySelector('form');
   }
   
   disableSubmitButton = () => {
-    this._button.classList.add('popup__btn_inactive');
-    this._button.setAttribute('disabled', 'true');
+    this._buttonElement.classList.add('popup__btn_inactive');
+    this._buttonElement.setAttribute('disabled', 'true');
   }
 
   //переберем формы
