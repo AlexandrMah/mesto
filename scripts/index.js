@@ -32,8 +32,12 @@ const popupNameImg = popupOpenImg.querySelector('.popup__name-image');
 
 //реализация закрытия окон через нажатие в стороне от попапа или ESC
 const popups = document.querySelectorAll('.popup');
+
 /*------------------------------------------*/
-//функции
+//формы
+const addCardPopup = document.querySelector('.popup_create-card');
+const editForm = popupEditProfole.querySelector('.popup__input_edit-profile');
+const addForm = addCardPopup.querySelector('.popup__input_create-card');
 
 /******* Валидация*******/
 
@@ -47,11 +51,10 @@ const selectors = {
   errorClass: 'popup__element_type_error'
 };
 
-const editFormValidator  = new FormValidator(selectors, popupEditProfole);
+const editFormValidator  = new FormValidator(selectors, popupEditProfole, editForm);
 editFormValidator.enableValidation();
 
-const addCardPopup = document.querySelector('.popup_create-card');
-const addFormValidator = new FormValidator(selectors, addCardPopup);
+const addFormValidator = new FormValidator(selectors, addCardPopup, addForm);
 addFormValidator.enableValidation();
 
 /*********** ***********/
@@ -126,7 +129,7 @@ popupEditProfole.addEventListener('submit', handleFormSubmitEditProfile);
 
 //окно добавления карточек (вызов функций)
 buttonOpenPopupAddCard.addEventListener('click', () => {
-  popupCreateCard.querySelector('form').reset();
+  addForm.reset();
   clickOpenPopup(popupCreateCard);
   
   addFormValidator.disableSubmitButton();

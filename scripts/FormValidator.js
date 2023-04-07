@@ -1,14 +1,14 @@
 import Card from "./card.js"
 
 class FormValidator {  
-  constructor(selectors, popup) {
+  constructor(selectors, popup, formElement) {
     this._selectors = selectors;
     this._popup = popup
-    this._formElement = popup.querySelector('form');
+    this._formElement = formElement;
   }
   
   disableSubmitButton = () => {
-    this._buttonElement.classList.add('popup__btn_inactive');
+    this._buttonElement.classList.add('selectors.inactiveButtonClass');
     this._buttonElement.setAttribute('disabled', 'true');
   }
 
