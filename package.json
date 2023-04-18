@@ -1,0 +1,11 @@
+{
+  "name": "mesto",
+  "version": "0.0.1",
+  "description": "* создание проекта на основе меката Figma;\r * использование контроля версий (GIT);\r * применение Flex и Grid Layout;\r * размещение различного контента;\r * создание адаптивной верски;\r * создание модального окна;\r * программирование на языке js.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Aleksandr Makhin",
+  "license": "ISC"
+}

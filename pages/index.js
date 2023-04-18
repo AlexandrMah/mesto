@@ -1,6 +1,6 @@
-import initialCards from "./data.js";
-import Card from "./card.js";
-import FormValidator from "./FormValidator.js";
+import initialCards from "../components/data.js";
+import Card from "../components/card.js";
+import FormValidator from "../components/FormValidator.js";
 
 //окно редактирования профиля
 const profile = document.querySelector('.profile');
