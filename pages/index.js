@@ -2,6 +2,7 @@ import initialCards from "../components/data.js";
 import Card from "../components/card.js";
 import FormValidator from "../components/FormValidator.js";
 import Popup from "../components/Popup.js";
+import UserInfo from "../components/UserInfo.js";
 
 //окно редактирования профиля
 const profile = document.querySelector('.profile');
@@ -109,8 +110,10 @@ const handleDelete = (evt) => {
 
 // добавление информации о пользователе при открытии окна
 const fillInProfileInfo = (evt) => {
-  nameInput.value = profileName.textContent;
-  jobInput.value = profileSpecialization.textContent;
+
+  const userInfo = new UserInfo(nameInput, jobInput);
+  userInfo.getUserInfo(profileName, profileSpecialization);
+
   const openPopup = new Popup(popupEditProfole);
   openPopup.open();
 }
@@ -119,8 +122,10 @@ const fillInProfileInfo = (evt) => {
 const handleFormSubmitEditProfile = (evt) => {
   evt.preventDefault();  
 
-  profileName.textContent = nameInput.value;
-  profileSpecialization.textContent = jobInput.value;
+  // profileName.textContent = nameInput.value;
+  // profileSpecialization.textContent = jobInput.value;
+  const userInfo = new UserInfo(nameInput, jobInput);
+  userInfo.setUserInfo(profileName, profileSpecialization);
 
   const closePopup = new Popup(popupEditProfole);
   closePopup.close();
