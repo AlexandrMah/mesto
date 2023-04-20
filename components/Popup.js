@@ -8,12 +8,14 @@ class Popup {
   open = () => {
     this._popup.classList.add('popup_opened');
     document.addEventListener('keydown', this._handleEscClose);
+    this._popup.addEventListener('click', this._closePopupClick);
   }
 
   //закрытие окна
   close = () => {
     this._popup.classList.remove('popup_opened');
     document.removeEventListener('keydown', this._handleEscClose);
+    this._popup.removeEventListener('click', this._closePopupClick);
   }
 
   // закрытие попапа на кнопку Esc
@@ -25,8 +27,7 @@ class Popup {
 
   //реализация закрытия окон через нажатие в стороне от попапа
   _closePopupClick = (e) => {
-    if (e.target === e.currentTarget) {   
-      console.log('hi');   
+    if (e.target === e.currentTarget) {
       this.close();      
     }    
   };
@@ -41,7 +42,6 @@ class Popup {
       this._closePopupClick();
     });
   };
-
 }
 
 export default Popup;
