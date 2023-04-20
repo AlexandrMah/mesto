@@ -1,8 +1,9 @@
-import initialCards from "../components/data.js";
+import initialCards from "../utils/data.js";
 import Card from "../components/card.js";
 import FormValidator from "../components/FormValidator.js";
 import Popup from "../components/Popup.js";
 import UserInfo from "../components/UserInfo.js";
+import Section from "../components/Section.js";
 
 //окно редактирования профиля
 const profile = document.querySelector('.profile');
@@ -66,10 +67,21 @@ const container = document.querySelector('.elements');
 const template = document.querySelector('#card').content;
 
 //формирование первых 6 карточек
-initialCards.forEach((info) => {  
-  const card = createCard(info.name, info.link, template, handleCardClick);
-  container.prepend(card.render());
-});
+// initialCards.forEach((info) => {  
+//   const card = createCard(info.name, info.link, template, handleCardClick);
+//   container.prepend(card.render());
+// });
+
+const section = new Section( { 
+    items: initialCards,
+    renderer: (info) => {
+      const card = createCard(info.name, info.link, template, handleCardClick);
+      section.addItem(card.render());    
+    } 
+  }, container
+)
+const newCard = section.rendererItem();
+
 
 //добавление новой карточки
 function addNewCard (evt){
@@ -122,14 +134,11 @@ const fillInProfileInfo = (evt) => {
 const handleFormSubmitEditProfile = (evt) => {
   evt.preventDefault();  
 
-  // profileName.textContent = nameInput.value;
-  // profileSpecialization.textContent = jobInput.value;
   const userInfo = new UserInfo(nameInput, jobInput);
   userInfo.setUserInfo(profileName, profileSpecialization);
 
   const closePopup = new Popup(popupEditProfole);
   closePopup.close();
-  //clickClosePopup(popupEditProfole);
 }
 
 /*------------------------------------------*/

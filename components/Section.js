@@ -5,14 +5,14 @@ class Section {
     this._container = container;
   }
 
-  render() {
-    this._placeName.textContent = this._name;
-    this._img.src = this._link;
-    this._img.alt = this._name;
+  rendererItem = () => {
+    this._items.forEach((info) => {      
+      this._renderer(info);
+    })
+  }
 
-    this._setEventListeners();
-
-    return(this._view);
+  addItem = (cardElement) => {
+    this._container.prepend(cardElement)
   }
 }
 

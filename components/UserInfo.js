@@ -12,8 +12,7 @@ class UserInfo {
   setUserInfo = (name, specialization) => {
     name.textContent = this._name.value;
     specialization.textContent = this._specialization.value;
-  }
-  
+  }  
 }
 
 export default UserInfo;
