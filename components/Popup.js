@@ -1,18 +1,18 @@
 class Popup {
   constructor(popup){
     this._popup = popup;
-    this._popupCloseEsc = document.querySelector('.popup_opened');
+    this._popupClose = document.querySelector('.popup_opened');
   }
 
   // открытие окна
-  open = () => {
+  open() {
     this._popup.classList.add('popup_opened');
     document.addEventListener('keydown', this._handleEscClose);
     this._popup.addEventListener('click', this._closePopupClick);
   }
 
   //закрытие окна
-  close = () => {
+  close() {
     this._popup.classList.remove('popup_opened');
     document.removeEventListener('keydown', this._handleEscClose);
     this._popup.removeEventListener('click', this._closePopupClick);
@@ -33,14 +33,16 @@ class Popup {
   };
 
   // добавление слушателей событий
-  setEventListeners = () => {
-    this._popupCloseEsc.addEventListener('click', () => {
+  setEventListeners() {
+    this._popupClose.addEventListener('click', () => {
       this.close();
     });
 
     this._popup.addEventListener('click', () => {
       this._closePopupClick();
     });
+
+    document.addEventListener('keydown', this._handleEscClose);
   };
 }
 
