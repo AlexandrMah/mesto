@@ -6,6 +6,18 @@ import UserInfo from "../components/UserInfo.js";
 import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
+import './index.css';
+
+//импортируем картинки
+import profilePhotoImage from '../images/Avatar.png';
+import logoImage from '../images/logo.svg';
+import crossImage from '../images/cross.svg';
+
+const whoIsTheGoat = [
+  { name: 'profilePhoto', image: profilePhotoImage },
+  { name: 'logo', image: logoImage },
+  { name: 'cross', image: crossImage },
+]; 
 
 //окно редактирования профиля
 const profile = document.querySelector('.profile');
