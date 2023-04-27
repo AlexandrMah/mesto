@@ -4,14 +4,16 @@ class UserInfo {
     this._specialization = specialization;
   }
 
-  getUserInfo = (name, specialization) => {
-    this._name.value = name.textContent;
-    this._specialization.value = specialization.textContent;
+  getUserInfo() {
+    return{
+      userName: this._name.textContent,
+      userSpecialization: this._specialization.textContent
+    }
   }
 
-  setUserInfo = (name, specialization) => {
-    name.textContent = this._name.value;
-    specialization.textContent = this._specialization.value;
+  setUserInfo({ name, info }) {
+    this._name.textContent = name;
+    this._specialization.textContent = info;
   }  
 }
 

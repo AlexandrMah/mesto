@@ -1,5 +1,3 @@
-import Card from "./card.js"
-
 class FormValidator {  
   constructor(selectors, popup, formElement) {
     this._selectors = selectors;

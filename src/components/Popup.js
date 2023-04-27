@@ -1,7 +1,7 @@
 class Popup {
   constructor(popup){
     this._popup = popup;
-    this._popupClose = document.querySelector('.popup_opened');
+    this._popupClose = this._popup.querySelector('.popup__close-btn');
   }
 
   // открытие окна
@@ -37,12 +37,6 @@ class Popup {
     this._popupClose.addEventListener('click', () => {
       this.close();
     });
-
-    this._popup.addEventListener('click', () => {
-      this._closePopupClick();
-    });
-
-    document.addEventListener('keydown', this._handleEscClose);
   };
 }
 
