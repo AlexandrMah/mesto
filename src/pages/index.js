@@ -79,11 +79,8 @@ const userInfo = new UserInfo(profileName,
 //форма для редактирования профиля
 const editPopup = new PopupWithForm(
   popupEditProfole, {
-  submitForm: ({ name, info }) => {
-    userInfo.setUserInfo({
-      name: nameInput.value,
-      info: jobInput.value,
-    });
+  submitForm: ({ name, specialization }) => {
+    userInfo.setUserInfo(name, specialization);
     editPopup.close();
   }
 });
@@ -104,10 +101,7 @@ editPopup.setEventListeners();
 const addPopup = new PopupWithForm(
   popupCreateCard, {
   submitForm: ( item ) => {
-    console.log('item', item);
-    console.log(item.name, item.url);
     const card = createCard(item.name, item.url, template);
-    console.log('card', card);
     section.addItem(card.render());
     addPopup.close();
   }
@@ -126,26 +120,7 @@ function createCard (name, link, template) {
   const cardElement = new Card(name, link, template, handleCardClick);
   return cardElement;
 }
-
-// передача данных при сохранении информации о пользователе
-const handleFormSubmitEditProfile = (evt) => {
-  evt.preventDefault();  
-
-  // const userInfo = new UserInfo({ profileName, profileSpecialization });
-  userInfo.setUserInfo(profileName, profileSpecialization);
-
-  const closePopup = new PopupWithForm(popupEditProfole, editForm);
-  closePopup.close();
-}
 /*------------------------------------------*/
-
-//закрытие попапа добавления карточки
-buttonClosePopupAddCard.addEventListener('click', () => {
-  const closePopup = new Popup(popupCreateCard);
-  closePopup.close();
-});
-//добавление карточки на кнопку сохранить
-addForm.addEventListener('submit', addNewCard);
 
 /*--------Просмотр Карточки---------*/
 const openPopupImage = new PopupWithImage(popupOpenImg);

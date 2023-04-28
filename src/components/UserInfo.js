@@ -11,7 +11,7 @@ class UserInfo {
     }
   }
 
-  setUserInfo({ name, info }) {
+  setUserInfo(name, info) {
     this._name.textContent = name;
     this._specialization.textContent = info;
   }  
