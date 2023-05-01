@@ -55,6 +55,20 @@
     </div>
   </section>
 
+  <section class="popup popup_edit-avatar">
+    <div class="popup__container popup__container_edit-avatar">
+      <h2 class="popup__title popup__title_edit-avatar">Обновить аватар</h2>
+      <form action="/apply/" method="POST" name="formEditAvatar" class="popup__input popup__input_edit-avatar" novalidate>
+        <label class="popup__field">
+          <input type="url" value=" " placeholder="Ссылка на фото" name="avatar" id="profileAvatar-input" class="popup__element popup__element_key_avatar" required minlength="2" maxlength="40">
+          <span class="url-input-error popup__input-error"></span>
+        </label>        
+        <button type="submit" class="popup__btn popup__btn_edit-avatar">Сохранить</button>
+      </form>
+      <button type="button" class="popup__close-btn popup__close-btn_edit-avatar"></button>
+    </div>
+  </section>
+
   <section class="popup popup_create-card">
     <div class="popup__container popup__container_create-card">
       <h2 class="popup__title popup__title_create-card">Новое место</h2>
@@ -73,6 +87,16 @@
     </div>
   </section>
 
+  <section class="popup popup_delete-card">
+    <div class="popup__container popup__container_delete-card">
+      <h2 class="popup__title popup__title_delete-card">Вы уверены?</h2>
+      <form action="/apply/" method="POST" name="formDeleteCards" class="popup__input popup__input_delete-card" novalidate>        
+        <button type="submit" class="popup__btn popup__btn_delete-card">Да</button>
+      </form>
+      <button type="button" class=" popup__close-btn popup__close-btn_delete-card"></button>
+    </div>
+  </section>
+
   <section class="popup popup_open-image">
     <div class="popup__container-image">
       <img src='#' alt="" class="popup__image">
@@ -86,7 +110,10 @@
       <button type='button' class="element__button-img"><img src="#" alt="#" class="element__image"></button>
       <div class="element__info">
         <h2 class="element__name"></h2>
-        <button type="button" class="element__like element__like_disablet"></button>
+        <div class="element__block-like">
+          <button type="button" class="element__like element__like_disablet"></button>
+          <p class="element__counter-like">0</p>
+        </div>
       </div>
       <button type="button" class="element__trash"></button>
     </article>

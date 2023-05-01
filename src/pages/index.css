@@ -31,6 +31,7 @@
 @import url(./../blocks/element/__like/_active/element__like_active.css);
 @import url(./../blocks/element/__like/_disablet/element__like_disablet.css);
 @import url(./../blocks/element/__trash/element__trash.css);
+@import url(./../blocks/element/__counter-like/element__counter-like.css);
 
 @import url(./../blocks/footer/footer.css);
 @import url(./../blocks/footer/__info/footer__info.css);

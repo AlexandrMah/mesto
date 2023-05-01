@@ -3,4 +3,5 @@
   height: 120px;
   object-fit: cover;
   border-radius: 90%;
+  position: relative;
 }

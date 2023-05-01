@@ -5,6 +5,7 @@
   background-color: #000;
   border: none;
   cursor: pointer;
+  transition: all 1.5s;
 }
 
 .profile__edit-photo:hover:after {
