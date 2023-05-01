@@ -1,0 +1,21 @@
+.profile__edit-photo{
+  max-width: 120px;
+  height: 120px;
+  padding: 0;
+  background-color: #000;
+  border: none;
+  cursor: pointer;
+}
+
+.profile__edit-photo:hover:after {
+  content: '';
+  width: 120px;
+  height: 120px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  background-image: url(./../../../images/Vector.png);
+  background-repeat: no-repeat;
+  background-position: 50%;
+}
