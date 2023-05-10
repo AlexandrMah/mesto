@@ -5,14 +5,14 @@ class Section {
     this._container = container;
   }
 
-  rendererItem() {
-    this._items.forEach((info) => {      
+  rendererItem() {  
+    this._items.forEach((info) => {
       this._renderer(info);
     })
   }
 
   addItem(cardElement) {
-    this._container.prepend(cardElement)
+    this._container.append(cardElement)
   }
 }
 

@@ -16,11 +16,11 @@
       <section class="profile">
         <div class="profile__info-user">
           <button type="button" class="profile__edit-photo">
-            <img src="<%=require('./images/Avatar.png')%>" alt="Фото профиля." class="profile__avatar">
+            <img src="#" alt="Фото профиля." class="profile__avatar">
           </button>
           <div class="profile__info">
-            <h1 class="profile__name">Жак-Ив Кусто</h1>
-            <p class="profile__specialization">Исследователь океана</p>
+            <h1 class="profile__name"></h1>
+            <p class="profile__specialization"></p>
             <button type="button" class="profile__edit-button"></button>
           </div>
         </div>
@@ -60,8 +60,8 @@
       <h2 class="popup__title popup__title_edit-avatar">Обновить аватар</h2>
       <form action="/apply/" method="POST" name="formEditAvatar" class="popup__input popup__input_edit-avatar" novalidate>
         <label class="popup__field">
-          <input type="url" value=" " placeholder="Ссылка на фото" name="avatar" id="profileAvatar-input" class="popup__element popup__element_key_avatar" required minlength="2" maxlength="40">
-          <span class="url-input-error popup__input-error"></span>
+          <input type="url" value=" " placeholder="Ссылка на фото" name="avatar" id="profileAvatar-input" class="popup__element popup__element_key_img" required>
+          <span class="profileAvatar-input-error popup__input-error"></span>
         </label>        
         <button type="submit" class="popup__btn popup__btn_edit-avatar">Сохранить</button>
       </form>
@@ -110,7 +110,7 @@
       <button type='button' class="element__button-img"><img src="#" alt="#" class="element__image"></button>
       <div class="element__info">
         <h2 class="element__name"></h2>
-        <div class="element__block-like">
+        <div class="element__likes">
           <button type="button" class="element__like element__like_disablet"></button>
           <p class="element__counter-like">0</p>
         </div>
