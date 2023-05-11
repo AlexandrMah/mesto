@@ -101,17 +101,35 @@ api.getInfoUser()
   })
 
 //Запрос карточек на сервере
+// api.getInitialCards()
+//   .then((res) => {
+//     const section = new Section( { 
+//       items: res,
+//       renderer: (info) => {
+//         const card = createCard(info, template);
+//         section.addItem(card.render());
+//         } 
+//     }, container
+//     );
+//     section.rendererItem();
+//   })
+//   .catch((err) => {
+//     console.log(err); // выведем ошибку в консоль
+//   });
 api.getInitialCards()
   .then((res) => {
-    const section = new Section( { 
-      items: res,
-      renderer: (info) => {
-        const card = createCard(info, template);
-        section.addItem(card.render());
-        } 
-    }, container
-    );
-    section.rendererItem();
+    api.getInfoUser()
+      .then((data) => {
+        const section = new Section( { 
+          items: res,
+          renderer: (info) => {
+            const card = createCard(info, template, data);
+            section.addItem(card.render());
+            } 
+        }, container
+        );
+        section.rendererItem();
+      })
   })
   .catch((err) => {
     console.log(err); // выведем ошибку в консоль
@@ -179,10 +197,18 @@ const addPopup = new PopupWithForm(
   popupCreateCard, {
   submitForm: ( item ) => {
     renderLoading(popupBtnCard, true);//изменение кнопки попапа на Сохранение...
+    // api.getAddNewCard(item.name, item.url)
+    // .then((info) => {
+    //   const card = createCard(info, template);
+    //   container.prepend(card.render());
+    // })
     api.getAddNewCard(item.name, item.url)
     .then((info) => {
-      const card = createCard(info, template);
-      container.prepend(card.render());
+      api.getInfoUser()
+      .then((data) => {
+        const card = createCard(info, template, data);
+        container.prepend(card.render());
+      })
     })
     .catch((err) => {
       console.log(err); // выведем ошибку в консоль
@@ -203,8 +229,8 @@ buttonOpenPopupAddCard.addEventListener('click', () => {
 });
 
 //создание карточки
-function createCard (info, template){
-  const cardElement = new Card(info, template, handleCardClick, popupWithSubmit, handleDeletePopupClick, api);
+function createCard (info, template, data){
+  const cardElement = new Card(info, template, handleCardClick, popupWithSubmit, handleDeletePopupClick, api, data);
   return cardElement;
 }
 

@@ -1,5 +1,5 @@
 class Card {  
-  constructor(info, template, handleCardClick, popupWithSubmit, handleDeletePopupClick, api){
+  constructor(info, template, handleCardClick, popupWithSubmit, handleDeletePopupClick, api, infoUser){
     this._api = api
     this._info = info;
     this._name = info.name;
@@ -17,7 +17,7 @@ class Card {
     this._elementButtonImg = this._view.querySelector('.element__button-img');
     this._counterLike = this._view.querySelector('.element__counter-like');
     this._cardUserId = info.owner._id;
-    this._userId = 'e427ce50782c82c06f44818b'  
+    this._userId = infoUser._id;
   }
 
   //октрытие попапа для подтверждения удаления карточки

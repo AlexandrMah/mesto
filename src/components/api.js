@@ -6,18 +6,17 @@ class Api{
   }
 
   //информация о пользователе на сервере
-  getInfoUser(){
-    return fetch(`${this._options.baseUrl}/users/me`, {
-      headers: {
-        authorization: this._authorization
-      }
-    }).then(res => {
-        if (res.ok) {
-          return res.json();
+  async getInfoUser(){
+    try{
+      const user = await fetch(`${this._options.baseUrl}/users/me`, {
+        headers: {
+          authorization: this._authorization
         }
-        // если ошибка, отклоняем промис
-        return Promise.reject(`Ошибка: ${res.status}`);
       })
+        return await user.json();
+    } catch(e) {   
+      return Promise.reject(`Ошибка: ${user.status}`);
+      }     
   }
 
   //отправка данных при редактировании профиля(editUserInfo)
