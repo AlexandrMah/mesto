@@ -21,44 +21,42 @@ class Api{
   }
 
   //отправка данных при редактировании профиля(editUserInfo)
-  editInfoUser({ name, specialization }){
-    fetch(`${this._options.baseUrl}/users/me`, {
-      method: 'PATCH',
-      headers: {
-        authorization: this._authorization,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        name: name,
-        about: specialization,
+  async editInfoUser({ name, specialization }){
+    try{
+      const infoUser = await fetch(`${this._options.baseUrl}/users/me`, {
+        method: 'PATCH',
+        headers: {
+          authorization: this._authorization,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: name,
+          about: specialization,
+        })
       })
-    }).then(res => {
-      if (res.ok) {
-        return res.json();
+        return infoUser.json();
+    } catch(e) {   
+        return Promise.reject(`Ошибка: ${infoUser.status}`);
       }
-      // если ошибка, отклоняем промис
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
   }
 
   //отправка данных при редактировании фото
-  editInfoAvatar(avatarLink){
-    fetch(`${this._options.baseUrl}/users/me/avatar`, {
-      method: 'PATCH',
-      headers: {
-        authorization: this._authorization,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        avatar: avatarLink.avatar
-      })
-    }).then(res => {
-      if (res.ok) {
-        return res.json();
+  async editInfoAvatar(avatarLink){
+    try{
+      const avatar = await fetch(`${this._options.baseUrl}/users/me/avatar`, {
+        method: 'PATCH',
+        headers: {
+          authorization: this._authorization,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          avatar: avatarLink.avatar
+        })
+      })      
+        return await avatar.json();
+    } catch(e) {   
+        return Promise.reject(`Ошибка: ${avatar.status}`);
       }
-      // если ошибка, отклоняем промис
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
   }
 
 
@@ -79,25 +77,6 @@ class Api{
 
 
   //добавление новой карточки на сервер
-  // getAddNewCard(name, url) {
-  //   return fetch(`${this._options.baseUrl}/cards`, {
-  //     method: 'POST',
-  //     headers: {
-  //       authorization: this._authorization,
-  //       'Content-Type': 'application/json'
-  //     },
-  //     body: JSON.stringify({
-  //       name: name,
-  //       link: url
-  //     })
-  //   }).then(res => {
-  //     if (res.ok) {
-  //       return res.json();
-  //     }
-  //     // если ошибка, отклоняем промис
-  //     return Promise.reject(`Ошибка: ${res.status}`);
-  //   });
-  // }
   async getAddNewCard(name, url) {
     try{
       const infoNewCard = await fetch(`${this._options.baseUrl}/cards`, {
@@ -115,9 +94,7 @@ class Api{
     } catch(e) {
         Promise.reject(`Ошибка: ${infoNewCard.status}`);
     } 
-  }
-
-  
+  }  
 
   deleteCard(id) {
     return fetch(`${this._options.baseUrl}/cards/${id}`, {
@@ -132,6 +109,37 @@ class Api{
       // если ошибка, отклоняем промис
       return Promise.reject(`Ошибка: ${res.status}`);
     });
+  }
+
+  async putLike(id) {
+    try{
+    const putLikeCard = await fetch(`${this._options.baseUrl}/cards/${id}/likes`, {
+      method: 'PUT',
+      headers: {
+        authorization: this._authorization,
+      },
+    })
+        return await putLikeCard.json();
+    } catch(e) {
+      // если ошибка, отклоняем промис
+      return Promise.reject(`Ошибка: ${res.status}`);
+    };
+  }
+
+  // удаление лайка
+  async deleteLike(id) {
+    try{
+    const deleteLikeCard = await fetch(`${this._options.baseUrl}/cards/${id}/likes`, {
+      method: 'DELETE',
+      headers: {
+        authorization: this._authorization,
+      },
+    })
+        return await deleteLikeCard.json();
+    } catch(e) {
+      // если ошибка, отклоняем промис
+      return Promise.reject(`Ошибка: ${res.status}`);
+    };
   }
 
 /*-----*/

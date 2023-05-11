@@ -54,6 +54,11 @@ const popupDeleteCard = document.querySelector('.popup_delete-card');
 //попап, кнопка подтверждения удаления карточки
 const formDeleteButtonOk = popupDeleteCard.querySelector('.popup__input_delete-card');
 
+//кнопки попапов
+const popupBtnInfo = document.querySelector('.popup__btn_edit-profile')
+const popupBtnAvatar = document.querySelector('.popup__btn_edit-avatar')
+const popupBtnCard = document.querySelector('.popup__btn_create-card')
+
 /*------------------------------------------*/
 //формы
 const addCardPopup = document.querySelector('.popup_create-card');
@@ -75,7 +80,7 @@ const avatarFormValidator = new FormValidator(selectors, popupEditAvatar, editAv
 avatarFormValidator.enableValidation();
 /*********** ***********/
 
-/*****Сервер*****/
+/*****Обращение к серверу*****/
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-65',
   headers: {
@@ -89,11 +94,11 @@ api.getInfoUser()
   .then((info) => {
     profileName.textContent = info.name;
     profileSpecialization.textContent = info.about;
-    profileAvatar.src = info.avatar;
+    profileAvatar.src = info.avatar;  
   })
   .catch((err) => {
     console.log(err); // выведем ошибку в консоль
-  });
+  })
 
 //Запрос карточек на сервере
 api.getInitialCards()
@@ -111,30 +116,6 @@ api.getInitialCards()
   .catch((err) => {
     console.log(err); // выведем ошибку в консоль
   });
-
-// async function initialCards(){
-//   try{ 
-//     const main = await api.getInitialCards(); 
-//     console.log('main', main);
-//     return main;
-//   } catch(error){
-//     console.error(error);
-//   }
-// }
-
-// const data = await initialCards();
-// console.log(data, 'data');
-
-/********Работа с объектом Card******** */
-// const section = new Section( { 
-//     items: data,
-//     renderer: (info) => {
-//       const card = createCard(info.name, info.link, template, handleCardClick);
-//       section.addItem(card.render());    
-//     } 
-//   }, container
-// ); 
-// section.rendererItem();
 
 //Объект с информацией о пользователе
 const userInfo = new UserInfo(profileName, 
@@ -167,8 +148,17 @@ const avatar = document.querySelector('.profile__avatar');
 const editPopupAvatar = new PopupWithForm(
   popupEditAvatar, {
   submitForm: (avatarLink) => {
-    api.editInfoAvatar(avatarLink);
-    avatar.src = avatarLink.avatar;
+    renderLoading(popupBtnAvatar, true);
+    api.editInfoAvatar(avatarLink)
+    .then((link) => {
+      avatar.src = link.avatar;
+    })    
+    .catch((err) => {
+      console.log(err); // выведем ошибку в консоль
+    })
+    .finally(() => {
+      renderLoading(popupBtnAvatar, false);// изменение кнопки попапа на Сохранить
+    });    
     editPopupAvatar.close();
   }
   }
@@ -188,11 +178,18 @@ buttonOpenPopupEditAvatar.addEventListener('click', () => {
 const addPopup = new PopupWithForm(
   popupCreateCard, {
   submitForm: ( item ) => {
+    renderLoading(popupBtnCard, true);//изменение кнопки попапа на Сохранение...
     api.getAddNewCard(item.name, item.url)
     .then((info) => {
       const card = createCard(info, template);
       container.prepend(card.render());
     })
+    .catch((err) => {
+      console.log(err); // выведем ошибку в консоль
+    })
+    .finally(() => {
+      renderLoading(popupBtnCard, false);// изменение кнопки попапа на Сохранить
+    }); 
     addPopup.close();
   }
 });
@@ -207,7 +204,7 @@ buttonOpenPopupAddCard.addEventListener('click', () => {
 
 //создание карточки
 function createCard (info, template){
-  const cardElement = new Card(info, template, handleCardClick, popupWithSubmit, deleteCardOkInfo);
+  const cardElement = new Card(info, template, handleCardClick, popupWithSubmit, handleDeletePopupClick, api);
   return cardElement;
 }
 
@@ -215,13 +212,16 @@ function createCard (info, template){
 const popupWithSubmit = new PopupWithSubmit(popupDeleteCard);
 popupWithSubmit.setEventListeners();
 
-//удаления карточки c сервера
-function deleteCardOkInfo(templateCard, id){  
+//удаления карточки c сервера (подтверждение в попапе)
+function handleDeletePopupClick(templateCard, id){  
   formDeleteButtonOk.addEventListener('submit', (evt) => {
     evt.preventDefault();  
       api.deleteCard(id)
       .then((info) => {
         templateCard.remove();
+      })
+      .catch((err) => {
+        console.log(err); // выведем ошибку в консоль
       });
       popupWithSubmit.close()  
   });
@@ -236,3 +236,12 @@ function handleCardClick(name, link) {
 }
 
 openPopupImage.setEventListeners();
+
+/*---Изменение кнопки сохранения при передаче информации на сервер---*/
+function renderLoading(btn, isLoading){
+  if (isLoading) {
+    btn.textContent = 'Сохранение...';
+  } else {
+    btn.textContent = 'Сохраненить';;
+  }
+}
