@@ -101,21 +101,6 @@ api.getInfoUser()
   })
 
 //Запрос карточек на сервере
-// api.getInitialCards()
-//   .then((res) => {
-//     const section = new Section( { 
-//       items: res,
-//       renderer: (info) => {
-//         const card = createCard(info, template);
-//         section.addItem(card.render());
-//         } 
-//     }, container
-//     );
-//     section.rendererItem();
-//   })
-//   .catch((err) => {
-//     console.log(err); // выведем ошибку в консоль
-//   });
 api.getInitialCards()
   .then((res) => {
     api.getInfoUser()
@@ -197,11 +182,6 @@ const addPopup = new PopupWithForm(
   popupCreateCard, {
   submitForm: ( item ) => {
     renderLoading(popupBtnCard, true);//изменение кнопки попапа на Сохранение...
-    // api.getAddNewCard(item.name, item.url)
-    // .then((info) => {
-    //   const card = createCard(info, template);
-    //   container.prepend(card.render());
-    // })
     api.getAddNewCard(item.name, item.url)
     .then((info) => {
       api.getInfoUser()
