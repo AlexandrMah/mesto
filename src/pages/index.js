@@ -1,5 +1,5 @@
 //import initialCards from "../utils/data.js";
-import Card from "../components/card.js";
+import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import Popup from "../components/Popup.js";
 import UserInfo from "../components/UserInfo.js";
@@ -8,7 +8,7 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithSubmit from "../components/PopupWithSubmit .js";
 import selectors from "../utils/constants.js";
-import Api from "../components/api.js";
+import Api from "../components/Api.js";
 import './index.css';
 
 //импортируем картинки
@@ -219,18 +219,18 @@ const popupWithSubmit = new PopupWithSubmit(popupDeleteCard);
 popupWithSubmit.setEventListeners();
 
 //удаления карточки c сервера (подтверждение в попапе)
-function handleDeletePopupClick(templateCard, id){  
-  formDeleteButtonOk.addEventListener('submit', (evt) => {
-    evt.preventDefault();  
-      api.deleteCard(id)
-      .then((info) => {
-        templateCard.remove();
-      })
-      .catch((err) => {
+const handleDeletePopupClick = (templateCard, card) => {
+  const confirmDeleteForm = async () => {
+    try{
+      const res = await api.deleteCard(card._id)
+      console.info(res);
+      templateCard.remove();
+    } catch(err) {
         console.log(err); // выведем ошибку в консоль
-      });
-      popupWithSubmit.close()  
-  });
+      };      
+    };
+  popupWithSubmit.setSubmitAction(confirmDeleteForm);
+  popupWithSubmit.open();
 }
 /*------------------------------------------*/
 
@@ -251,3 +251,6 @@ function renderLoading(btn, isLoading){
     btn.textContent = 'Сохраненить';;
   }
 }
+
+/*-----------------------*/
+

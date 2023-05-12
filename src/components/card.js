@@ -23,7 +23,7 @@ class Card {
   //октрытие попапа для подтверждения удаления карточки
   _handleDeleteIconClick = () => {    
     this._popupDeletOk.open();
-    this._handleDeletePopupClick(this._view, this._info._id);
+    this._handleDeletePopupClick(this._view, this._info);
   }  
 
   _isLiked(){
@@ -63,10 +63,8 @@ class Card {
   }
   _setEventListeners = () => {
     //открытие попапа удаления карточки
-    if (this._view.querySelector('.element__trash') !== null){
-      
+    if (this._view.querySelector('.element__trash') !== null){      
       this._elementTrash.addEventListener('click', this._handleDeleteIconClick);
-
     };
     
     //лайк

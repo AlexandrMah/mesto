@@ -95,27 +95,27 @@ class Api{
     } 
   }  
 
-  deleteCard(id) {
-    return fetch(`${this._options.baseUrl}/cards/${id}`, {
+  async deleteCard(id) {
+    try{
+      const delCard = await fetch(`${this._options.baseUrl}/cards/${id}`, {
       method: 'DELETE',
       headers: {
         authorization: this._authorization,
       },
-    }).then(res => {
-      if (res.ok) {
-        return res.json();
-      }
+    }) 
+        return delCard.json();
+      } catch(e) {
       // если ошибка, отклоняем промис
-      return Promise.reject(`Ошибка: ${res.status}`);
-    });
+      return Promise.reject(`Ошибка: ${delCard.status}`)
+    }
   }
 
   async putLike(id) {
     try{
-    const putLikeCard = await fetch(`${this._options.baseUrl}/cards/${id}/likes`, {
-      method: 'PUT',
-      headers: {
-        authorization: this._authorization,
+      const putLikeCard = await fetch(`${this._options.baseUrl}/cards/${id}/likes`, {
+        method: 'PUT',
+        headers: {
+          authorization: this._authorization,
       },
     })
         return await putLikeCard.json();
@@ -128,16 +128,16 @@ class Api{
   // удаление лайка
   async deleteLike(id) {
     try{
-    const deleteLikeCard = await fetch(`${this._options.baseUrl}/cards/${id}/likes`, {
-      method: 'DELETE',
-      headers: {
-        authorization: this._authorization,
+      const deleteLikeCard = await fetch(`${this._options.baseUrl}/cards/${id}/likes`, {
+        method: 'DELETE',
+        headers: {
+          authorization: this._authorization,
       },
     })
         return await deleteLikeCard.json();
     } catch(e) {
       // если ошибка, отклоняем промис
-      return Promise.reject(`Ошибка: ${res.status}`);
+      return Promise.reject(`Ошибка: ${deleteLikeCard.status}`);
     };
   }
 
