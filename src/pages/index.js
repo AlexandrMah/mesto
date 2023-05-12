@@ -166,7 +166,6 @@ const editPopupAvatar = new PopupWithForm(
   }
   }
 );
-
 editPopupAvatar.setEventListeners();
 
 //окно редактирования аватара (вызов функции)
