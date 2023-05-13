@@ -3,142 +3,108 @@ class Api{
     this._options = options;
     this._authorization = this._options.headers.authorization;
     this._url = this._options.baseUrl;
+    this._headers = this._options.headers;
   }
 
   //информация о пользователе на сервере
-  async getInfoUser(){
-    try{
-      const user = await fetch(`${this._options.baseUrl}/users/me`, {
-        headers: {
-          authorization: this._authorization
-        }
-      })
-        return await user.json();
-    } catch(e) {   
-      return Promise.reject(`Ошибка: ${user.status}`);
-      }     
-  }
+  async getInfoUser(){  
+    const user = await fetch(`${this._options.baseUrl}/users/me`, {
+      headers: {
+        authorization: this._authorization
+      }
+    })
+    return this._checkResponse(user);
+  }  
 
   //отправка данных при редактировании профиля(editUserInfo)
   async editInfoUser({ name, specialization }){
-    try{
+
       const infoUser = await fetch(`${this._options.baseUrl}/users/me`, {
         method: 'PATCH',
-        headers: {
-          authorization: this._authorization,
-          'Content-Type': 'application/json'
-        },
+        headers: this._headers,
         body: JSON.stringify({
           name: name,
           about: specialization,
         })
       })
-        return infoUser.json();
-    } catch(e) {   
-        return Promise.reject(`Ошибка: ${infoUser.status}`);
-      }
+      return this._checkResponse(infoUser);
   }
 
   //отправка данных при редактировании фото
-  async editInfoAvatar(avatarLink){
-    try{
-      const avatar = await fetch(`${this._options.baseUrl}/users/me/avatar`, {
-        method: 'PATCH',
-        headers: {
-          authorization: this._authorization,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          avatar: avatarLink.avatar
-        })
-      })      
-        return await avatar.json();
-    } catch(e) {   
-        return Promise.reject(`Ошибка: ${avatar.status}`);
-      }
+  async editInfoAvatar(avatarLink){  
+    const avatar = await fetch(`${this._options.baseUrl}/users/me/avatar`, {
+      method: 'PATCH',
+      headers: this._headers,
+      body: JSON.stringify({
+        avatar: avatarLink.avatar
+      })
+    })
+    return this._checkResponse(avatar);
   }
 
 
   //информация о имеющихся карточках на сервере
-  getInitialCards(){
-    return fetch(`${this._options.baseUrl}/cards`, {
+  async getInitialCards() {
+    const intialCards = await fetch(`${this._options.baseUrl}/cards`, {
       headers: {
         authorization: this._authorization
       }
-    }).then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        // если ошибка, отклоняем промис
-        return Promise.reject(`Ошибка: ${res.status}`);
-      });
+    })
+      return this._checkResponse(intialCards);        
+    
   }
 
 
   //добавление новой карточки на сервер
   async getAddNewCard(name, url) {
-    try{
-      const infoNewCard = await fetch(`${this._options.baseUrl}/cards`, {
-        method: 'POST',
-        headers: {
-          authorization: this._authorization,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          name: name,
-          link: url
-        })
+    const infoNewCard = await fetch(`${this._options.baseUrl}/cards`, {
+      method: 'POST',
+      headers: this._headers,
+      body: JSON.stringify({
+        name: name,
+        link: url
       })
-        return await infoNewCard.json();
-    } catch(e) {
-        Promise.reject(`Ошибка: ${infoNewCard.status}`);
-    } 
+    })
+    return this._checkResponse(infoNewCard);
   }  
 
   async deleteCard(id) {
-    try{
-      const delCard = await fetch(`${this._options.baseUrl}/cards/${id}`, {
+    const delCard = await fetch(`${this._options.baseUrl}/cards/${id}`, {
       method: 'DELETE',
       headers: {
         authorization: this._authorization,
       },
-    }) 
-        return delCard.json();
-      } catch(e) {
-      // если ошибка, отклоняем промис
-      return Promise.reject(`Ошибка: ${delCard.status}`)
-    }
+    })
+    return this._checkResponse(delCard);
   }
 
   async putLike(id) {
-    try{
-      const putLikeCard = await fetch(`${this._options.baseUrl}/cards/${id}/likes`, {
-        method: 'PUT',
-        headers: {
-          authorization: this._authorization,
+    const putLikeCard = await fetch(`${this._options.baseUrl}/cards/${id}/likes`, {
+      method: 'PUT',
+      headers: {
+        authorization: this._authorization,
       },
     })
-        return await putLikeCard.json();
-    } catch(e) {
-      // если ошибка, отклоняем промис
-      return Promise.reject(`Ошибка: ${res.status}`);
-    };
+    return this._checkResponse(putLikeCard);
   }
 
   // удаление лайка
   async deleteLike(id) {
-    try{
-      const deleteLikeCard = await fetch(`${this._options.baseUrl}/cards/${id}/likes`, {
-        method: 'DELETE',
-        headers: {
-          authorization: this._authorization,
+    const deleteLikeCard = await fetch(`${this._options.baseUrl}/cards/${id}/likes`, {
+      method: 'DELETE',
+      headers: {
+        authorization: this._authorization,
       },
     })
-        return await deleteLikeCard.json();
-    } catch(e) {
-      // если ошибка, отклоняем промис
-      return Promise.reject(`Ошибка: ${deleteLikeCard.status}`);
-    };
+    return this._checkResponse(deleteLikeCard);
+  }
+
+  /*----Проверка ответа----*/
+  _checkResponse(res){
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ошибка ${res.status}`);
   }
 
 /*-----*/

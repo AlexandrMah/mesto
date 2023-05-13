@@ -22,13 +22,14 @@ const whoIsTheGoat = [
   { name: 'cross', image: crossImage },
 ]; 
 
-//окно редактирования профиля
+//информация профиля
 const profile = document.querySelector('.profile');
 const buttonOpenPopupProfile = profile.querySelector('.profile__edit-button');
 const profileName = profile.querySelector('.profile__name');
 const profileSpecialization = profile.querySelector('.profile__specialization');
 const profileAvatar = profile.querySelector('.profile__avatar') 
 
+//попап редактирования профиля
 const popupEditProfole = document.querySelector('.popup_edit-profile');
 const buttonClosePopupProfile = popupEditProfole.querySelector('.popup__close-btn_edit-profile');
 const nameInput = popupEditProfole.querySelector('.popup__element_key_name');
@@ -69,6 +70,9 @@ const editAvatarForm = popupEditAvatar.querySelector('.popup__input_edit-avatar'
 const container = document.querySelector('.elements');
 const template = document.querySelector('#card').content;
 
+let userId; // Объявление переменной id пользователя
+let useer; //переменная с информацией о пользователе
+
 /******* Валидация*******/
 const editFormValidator  = new FormValidator(selectors, popupEditProfole, editForm);
 editFormValidator.enableValidation();
@@ -92,37 +96,34 @@ const api = new Api({
 //Запрос информации о пользователе
 api.getInfoUser()
   .then((info) => {
-    profileName.textContent = info.name;
-    profileSpecialization.textContent = info.about;
-    profileAvatar.src = info.avatar;  
+    userInfo.assignUserInfo(info);
+    userId = info._id;
   })
   .catch((err) => {
     console.log(err); // выведем ошибку в консоль
   })
 
+//Объект с информацией о пользователе
+const userInfo = new UserInfo(profileName, 
+  profileSpecialization, profileAvatar);
+  
+//Объект section
+const section = new Section( {        
+      renderer: (info) => {
+        const card = createCard(info, template, userId);
+        section.addItem(card.render());
+        } 
+    }, container
+    );
+    
 //Запрос карточек на сервере
 api.getInitialCards()
-  .then((res) => {
-    api.getInfoUser()
-      .then((data) => {
-        const section = new Section( { 
-          items: res,
-          renderer: (info) => {
-            const card = createCard(info, template, data);
-            section.addItem(card.render());
-            } 
-        }, container
-        );
-        section.rendererItem();
-      })
+  .then((res) => {    
+    section.rendererItem({ items: res });
   })
   .catch((err) => {
     console.log(err); // выведем ошибку в консоль
   });
-
-//Объект с информацией о пользователе
-const userInfo = new UserInfo(profileName, 
-  profileSpecialization);
 
 //форма для редактирования профиля
 const editPopup = new PopupWithForm(
@@ -183,11 +184,8 @@ const addPopup = new PopupWithForm(
     renderLoading(popupBtnCard, true);//изменение кнопки попапа на Сохранение...
     api.getAddNewCard(item.name, item.url)
     .then((info) => {
-      api.getInfoUser()
-      .then((data) => {
-        const card = createCard(info, template, data);
-        container.prepend(card.render());
-      })
+      const card = createCard(info, template, userId);
+      section.prependItem(card.render());
     })
     .catch((err) => {
       console.log(err); // выведем ошибку в консоль
@@ -208,8 +206,8 @@ buttonOpenPopupAddCard.addEventListener('click', () => {
 });
 
 //создание карточки
-function createCard (info, template, data){
-  const cardElement = new Card(info, template, handleCardClick, popupWithSubmit, handleDeletePopupClick, api, data);
+function createCard (info, template, userId){
+  const cardElement = new Card(info, template, handleCardClick, popupWithSubmit, handleDeletePopupClick, api, userId);
   return cardElement;
 }
 
