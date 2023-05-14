@@ -1,12 +1,11 @@
 class Card {  
-  constructor(info, template, handleCardClick, popupWithSubmit, handleDeletePopupClick, api, userId){
+  constructor(info, template, handleCardClick, handleDeletePopupClick, api, userId){
     this._api = api
     this._info = info;
     this._name = info.name;
     this._link = info.link;
     this._likes = info.likes;
     this._template = template;
-    this._popupDeletOk = popupWithSubmit;
     this._handleDeletePopupClick = handleDeletePopupClick;
     this._view = this._template.cloneNode(true).children[0];
     this._placeName = this._view.querySelector('.element__name');
@@ -21,8 +20,7 @@ class Card {
   }
 
   //октрытие попапа для подтверждения удаления карточки
-  _handleDeleteIconClick = () => {    
-    this._popupDeletOk.open();
+  _handleDeleteIconClick = () => {
     this._handleDeletePopupClick(this._view, this._info);
   }  
 
@@ -34,7 +32,7 @@ class Card {
   _likeCard = () => {
     if (this._isLiked()){
       this._like.classList.add('element__like_active');
-      this._like.classList.remove('element__like_disablet');
+      this._like.classList.remove('element__like_disabled');
     }
   };
 
@@ -43,7 +41,7 @@ class Card {
       this._api.deleteLike(this._info._id)
       .then((res) =>{
         this._like.classList.remove('element__like_active');
-        this._like.classList.add('element__like_disablet');
+        this._like.classList.add('element__like_disabled');
         this._counterLike.textContent = res.likes.length;
         this._likes = res.likes;
       }).catch((err) => {
@@ -53,7 +51,7 @@ class Card {
       this._api.putLike(this._info._id)
       .then((res) =>{
         this._like.classList.add('element__like_active');
-        this._like.classList.remove('element__like_disablet');
+        this._like.classList.remove('element__like_disabled');
         this._counterLike.textContent = res.likes.length;
         this._likes = res.likes;
       }).catch((err) => {

@@ -18,7 +18,6 @@ class Api{
 
   //отправка данных при редактировании профиля(editUserInfo)
   async editInfoUser({ name, specialization }){
-
       const infoUser = await fetch(`${this._options.baseUrl}/users/me`, {
         method: 'PATCH',
         headers: this._headers,

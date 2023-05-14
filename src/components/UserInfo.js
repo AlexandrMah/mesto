@@ -1,16 +1,13 @@
 class UserInfo {
-  constructor(name, specialization, avatar, id){
+  constructor(name, specialization, avatar){
     this._name = name;
     this._specialization = specialization;
     this._avatar = avatar;
-    this._id = id;
   }
 
   assignUserInfo(info) {
-    this._name.textContent = info.name;
-    this._specialization.textContent = info.about;
+    this.setUserInfo(info.name, info.about);
     this._avatar.src = info.avatar;
-    this._id = info._id;
   }
 
   getUserInfo() {
@@ -18,6 +15,10 @@ class UserInfo {
       userName: this._name.textContent,
       userSpecialization: this._specialization.textContent
     }
+  }
+
+  getUserAvatar(avatar) {
+    this._avatar.src = avatar;
   }
 
   setUserInfo(name, info) {

@@ -1,7 +1,6 @@
 class FormValidator {  
-  constructor(selectors, popup, formElement) {
+  constructor(selectors, formElement) {
     this._selectors = selectors;
-    this._popup = popup
     this._formElement = formElement;
   }
   
@@ -63,12 +62,9 @@ class FormValidator {
   // Функция принимает массив полей ввода
   // и элемент кнопки, состояние которой нужно менять
   _toggleButtonState = (inputList, buttonElement, selectors) => {  
-    if (this._hasInvalidInput(inputList)) {  
-      buttonElement.setAttribute('disabled', 'true');
-      buttonElement.classList.add(selectors.inactiveButtonClass);
-
-    } else {
-  
+    if (this._hasInvalidInput(inputList)) {
+      this.disableSubmitButton();
+    } else {  
       buttonElement.removeAttribute('disabled');
       buttonElement.classList.remove(selectors.inactiveButtonClass);
     }

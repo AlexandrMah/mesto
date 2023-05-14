@@ -1,7 +1,7 @@
-.element__like_disablet{
+.element__like_disabled{
   background-image: url(./../../../../images/heart_disablet.svg);
 }
 
-.element__like_disablet:hover {
+.element__like_disabled:hover {
   background-image: url(./../../../../images/heart_hover.svg);
 }

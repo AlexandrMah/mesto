@@ -1,4 +1,5 @@
 //import initialCards from "../utils/data.js";
+import renderLoading from "../utils/utils.js";
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import Popup from "../components/Popup.js";
@@ -30,10 +31,10 @@ const profileSpecialization = profile.querySelector('.profile__specialization');
 const profileAvatar = profile.querySelector('.profile__avatar') 
 
 //попап редактирования профиля
-const popupEditProfole = document.querySelector('.popup_edit-profile');
-const buttonClosePopupProfile = popupEditProfole.querySelector('.popup__close-btn_edit-profile');
-const nameInput = popupEditProfole.querySelector('.popup__element_key_name');
-const jobInput = popupEditProfole.querySelector('.popup__element_key_specialization');
+const popupEditProfile = document.querySelector('.popup_edit-profile');
+const buttonClosePopupProfile = popupEditProfile.querySelector('.popup__close-btn_edit-profile');
+const nameInput = popupEditProfile.querySelector('.popup__element_key_name');
+const jobInput = popupEditProfile.querySelector('.popup__element_key_specialization');
 
 const popupEditAvatar = document.querySelector('.popup_edit-avatar');
 
@@ -63,7 +64,7 @@ const popupBtnCard = document.querySelector('.popup__btn_create-card')
 /*------------------------------------------*/
 //формы
 const addCardPopup = document.querySelector('.popup_create-card');
-const editForm = popupEditProfole.querySelector('.popup__input_edit-profile');
+const editForm = popupEditProfile.querySelector('.popup__input_edit-profile');
 const addForm = addCardPopup.querySelector('.popup__input_create-card');
 const editAvatarForm = popupEditAvatar.querySelector('.popup__input_edit-avatar');
 
@@ -71,10 +72,9 @@ const container = document.querySelector('.elements');
 const template = document.querySelector('#card').content;
 
 let userId; // Объявление переменной id пользователя
-let useer; //переменная с информацией о пользователе
 
 /******* Валидация*******/
-const editFormValidator  = new FormValidator(selectors, popupEditProfole, editForm);
+const editFormValidator  = new FormValidator(selectors, editForm);
 editFormValidator.enableValidation();
 
 const addFormValidator = new FormValidator(selectors, addCardPopup, addForm);
@@ -93,46 +93,48 @@ const api = new Api({
   }
 });
 
-//Запрос информации о пользователе
-api.getInfoUser()
-  .then((info) => {
-    userInfo.assignUserInfo(info);
-    userId = info._id;
+Promise.all([api.getInfoUser(), api.getInitialCards()])
+  .then(([userData, cards]) => {
+      // тут установка данных пользователя
+      userInfo.assignUserInfo(userData);
+      userId = userData._id;
+      // и тут отрисовка карточек
+      section.rendererItem({ items: cards });
   })
-  .catch((err) => {
-    console.log(err); // выведем ошибку в консоль
-  })
+  .catch(err => {
+    console.log(err); // тут ловим ошибку
+  });
 
 //Объект с информацией о пользователе
 const userInfo = new UserInfo(profileName, 
-  profileSpecialization, profileAvatar);
+  profileSpecialization, profileAvatar, userId);
   
 //Объект section
 const section = new Section( {        
       renderer: (info) => {
         const card = createCard(info, template, userId);
-        section.addItem(card.render());
+        section.addItem(card);
         } 
     }, container
     );
-    
-//Запрос карточек на сервере
-api.getInitialCards()
-  .then((res) => {    
-    section.rendererItem({ items: res });
-  })
-  .catch((err) => {
-    console.log(err); // выведем ошибку в консоль
-  });
 
 //форма для редактирования профиля
 const editPopup = new PopupWithForm(
-  popupEditProfole, {
+  popupEditProfile, {
   submitForm: ({ name, specialization }) => {
     //запрос на сервер, изменение данных профиля
+    renderLoading(popupBtnInfo, true);
     api.editInfoUser({ name, specialization })
-    userInfo.setUserInfo(name, specialization);
-    editPopup.close();
+    .then((link) => {
+      userInfo.setUserInfo(name, specialization);
+      editPopup.close();
+    })    
+    .catch((err) => {
+      console.log(err); // выведем ошибку в консоль
+    })
+    .finally(() => {
+      renderLoading(popupBtnInfo, false);// изменение кнопки попапа на Сохранить
+    });
   }
 });
 
@@ -155,15 +157,15 @@ const editPopupAvatar = new PopupWithForm(
     renderLoading(popupBtnAvatar, true);
     api.editInfoAvatar(avatarLink)
     .then((link) => {
-      avatar.src = link.avatar;
+      userInfo.getUserAvatar(link.avatar);
+      editPopupAvatar.close();
     })    
     .catch((err) => {
       console.log(err); // выведем ошибку в консоль
     })
     .finally(() => {
       renderLoading(popupBtnAvatar, false);// изменение кнопки попапа на Сохранить
-    });    
-    editPopupAvatar.close();
+    });
   }
   }
 );
@@ -185,15 +187,15 @@ const addPopup = new PopupWithForm(
     api.getAddNewCard(item.name, item.url)
     .then((info) => {
       const card = createCard(info, template, userId);
-      section.prependItem(card.render());
+      section.prependItem(card);
+      addPopup.close();
     })
     .catch((err) => {
       console.log(err); // выведем ошибку в консоль
     })
     .finally(() => {
       renderLoading(popupBtnCard, false);// изменение кнопки попапа на Сохранить
-    }); 
-    addPopup.close();
+    });
   }
 });
 
@@ -207,8 +209,9 @@ buttonOpenPopupAddCard.addEventListener('click', () => {
 
 //создание карточки
 function createCard (info, template, userId){
-  const cardElement = new Card(info, template, handleCardClick, popupWithSubmit, handleDeletePopupClick, api, userId);
-  return cardElement;
+  const cardElement = new Card(info, template, handleCardClick, handleDeletePopupClick, api, userId);
+  //return cardElement;
+  return cardElement.render();
 }
 
 //попуп подтверждения удаления карточки (клики)
@@ -222,6 +225,7 @@ const handleDeletePopupClick = (templateCard, card) => {
       const res = await api.deleteCard(card._id)
       console.info(res);
       templateCard.remove();
+      popupWithSubmit.close();
     } catch(err) {
         console.log(err); // выведем ошибку в консоль
       };      
@@ -239,15 +243,4 @@ function handleCardClick(name, link) {
 }
 
 openPopupImage.setEventListeners();
-
-/*---Изменение кнопки сохранения при передаче информации на сервер---*/
-function renderLoading(btn, isLoading){
-  if (isLoading) {
-    btn.textContent = 'Сохранение...';
-  } else {
-    btn.textContent = 'Сохраненить';;
-  }
-}
-
 /*-----------------------*/
-
